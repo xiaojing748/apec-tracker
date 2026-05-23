@@ -16,15 +16,24 @@
 
   // ---- 初始化 ----
   async function init() {
-    try {
-      const resp = await fetch(DATA_URL);
-      if (!resp.ok) throw new Error('HTTP ' + resp.status);
-      const data = await resp.json();
+    var data = null;
+    // 优先使用内嵌数据（本地模式）
+    if (window.__APEC_DATA__) {
+      data = window.__APEC_DATA__;
+    } else {
+      // 在线模式：fetch JSON
+      try {
+        var resp = await fetch(DATA_URL);
+        if (resp.ok) data = await resp.json();
+      } catch (e) {
+        console.error('加载数据失败:', e);
+      }
+    }
+    if (data) {
       allArticles = data.articles || [];
       document.getElementById('updateTime').textContent =
         '最后更新：' + (data.last_updated || '未知');
-    } catch (e) {
-      console.error('加载数据失败:', e);
+    } else {
       allArticles = [];
       document.getElementById('updateTime').textContent = '数据加载失败，请稍后刷新';
     }
