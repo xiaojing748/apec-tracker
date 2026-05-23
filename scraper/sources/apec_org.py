@@ -23,8 +23,8 @@ def _fetch_rss():
     """从 APEC 官网 RSS Feed 获取新闻"""
     articles = []
     rss_urls = [
+        "https://www.apec.org/feeds/rss",
         "https://www.apec.org/feed",
-        "https://www.apec.org/rss.xml",
     ]
     cutoff = datetime.now(timezone.utc) - timedelta(days=config.MAX_DAYS_LOOKBACK)
 

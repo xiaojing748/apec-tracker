@@ -315,26 +315,59 @@ BLOCKED_DOMAINS = [
 # ============================================================
 REQUEST_TIMEOUT = 30
 REQUEST_DELAY = 2
-MAX_ARTICLES_PER_SOURCE = 30
+MAX_ARTICLES_PER_SOURCE = 50
 MAX_DAYS_LOOKBACK = 150  # 覆盖2026年1月至今（约150天）
 BING_API_KEY = ""
 
 
 def classify_article(title, description=""):
-    """根据标题和摘要自动分类到议题"""
+    """根据标题和摘要自动分类到议题——支持短语和关键词部分匹配"""
     text = (title + " " + description).lower()
     categories = []
-    for category, words in KEYWORDS.items():
-        for word in words:
-            if word.lower() in text:
-                categories.append(category)
+
+    # 核心词映射：当标题中出现这些词时自动归类
+    CORE_MATCH = {
+        "数据跨境与隐私保护": ["cbpr", "cross-border privacy", "cross border data",
+                            "data privacy", "data protection", "data flow",
+                            "跨境数据", "数据跨境", "数据隐私", "个人信息", "隐私保护"],
+        "AI治理": ["ai governance", "ai safety", "artificial intelligence",
+                   "ai standard", "ai ethic", "ai initiative", "ai adoption",
+                   "人工智能", "AI治理", "AI安全"],
+        "数字经济": ["digital economy", "digital trade", "digital transformation",
+                   "e-commerce", "fintech", "paperless trade",
+                   "数字经济", "数字贸易", "数字化转型", "跨境电商", "数字服务"],
+        "互联互通": ["connectivity", "infrastructure", "digital infrastructure",
+                   "互联互通", "基础设施"],
+        "供应链安全": ["supply chain", "供应链", "ict supply"],
+        "网络犯罪": ["cybersecurity", "cyber security", "cybercrime",
+                   "critical infrastructure", "ciip", "incident response",
+                   "网络安全", "网络犯罪", "关键信息基础设施", "网络威胁"],
+        "地缘政治": ["trade war", "tariff", "protectionism", "ftaap",
+                   "trade facilitation", "multilateral", "economic cooperation",
+                   "关税", "贸易便利化", "多边", "单边"],
+    }
+
+    for cat, keywords in CORE_MATCH.items():
+        for kw in keywords:
+            if kw in text:
+                categories.append(cat)
                 break
+
     # 额外检查2026中国年
-    for kw in CHINA_2026_KEYWORDS:
-        if kw.lower() in text:
+    CHINA_MATCH = [
+        "som1", "som2", "som3", "som 1", "som 2",
+        "shanghai", "suzhou", "harbin", "dalian", "chengdu", "shenzhen",
+        "host year", "china 2026", "aboac",
+        "中国年", "哈尔滨", "上海", "苏州", "大连", "成都", "深圳",
+        "mrt", "digital week", "ceo summit",
+        "贸易部长", "数字周", "领导人", "峰会",
+    ]
+    for kw in CHINA_MATCH:
+        if kw in text:
             if "2026中国年" not in categories:
                 categories.append("2026中国年")
             break
+
     if not categories:
         categories.append("其他APEC动态")
     return categories
