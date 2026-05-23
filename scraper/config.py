@@ -7,7 +7,7 @@ APEC 动态追踪 - 配置文件
 # 追踪关键词
 # ============================================================
 KEYWORDS = {
-    "数据跨境": [
+    "数据跨境与隐私保护": [
         # CBPR体系
         "APEC CBPR",
         "Global CBPR Forum",
@@ -21,12 +21,42 @@ KEYWORDS = {
         "APEC DESG data",
         "APEC data protection",
         "APEC data certification",
+        # 个人信息与隐私保护
+        "APEC personal information protection",
+        "APEC personal data protection",
+        "APEC personal privacy",
+        "APEC privacy protection",
+        "APEC privacy framework",
+        "APEC privacy shield",
+        "APEC data subject rights",
+        "APEC consent mechanism",
+        "APEC data breach notification",
+        "APEC sensitive data",
+        "APEC children data protection",
+        # 数据跨境合规
+        "APEC data transfer compliance",
+        "APEC cross-border data compliance",
+        "APEC data localization",
+        "APEC data sovereignty",
+        "APEC data adequacy",
+        "APEC trusted data flow",
+        "APEC data free flow with trust",
         # 中文
         "APEC 跨境数据流动",
         "APEC 数据跨境",
         "APEC 数据隐私",
         "APEC 数据保护",
+        "APEC 个人信息保护",
+        "APEC 个人隐私",
+        "APEC 隐私保护",
+        "APEC 数据合规",
+        "APEC 数据本地化",
+        "APEC 数据主权",
         "APEC 数据有序流动",
+        "APEC 数据出境",
+        "APEC 个人信息出境",
+        "APEC 隐私框架",
+        "APEC 敏感个人信息",
         # 相关技术方案
         "APEC DDTP",
         "APEC digital trade rules",
