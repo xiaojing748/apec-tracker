@@ -41,17 +41,29 @@ def filter_by_domain(articles):
 
 
 def filter_by_keywords(articles):
-    """只保留标题或摘要包含至少一个关键词的文章"""
-    all_words = []
-    for words in config.KEYWORDS.values():
-        all_words.extend(words)
-    all_words.extend(config.CHINA_2026_KEYWORDS)
+    """只保留标题或摘要包含核心议题关键词的文章（使用与classify相同的宽松匹配）"""
+    # 与config.classify_article共用同一套CORE_MATCH关键词
+    CORE_MATCH = [
+        "cbpr", "cross-border privacy", "cross border data",
+        "data privacy", "data protection", "data flow", "跨境数据", "数据跨境",
+        "ai governance", "ai safety", "artificial intelligence", "ai standard",
+        "ai adoption", "人工智能", "AI治理",
+        "digital economy", "digital trade", "digital transformation",
+        "e-commerce", "fintech", "paperless trade", "数字经济", "数字贸易", "跨境电商",
+        "connectivity", "infrastructure", "互联互通",
+        "supply chain", "供应链", "ict supply",
+        "cybersecurity", "cyber security", "cybercrime", "critical infrastructure",
+        "网络安全", "网络犯罪", "关键信息基础设施",
+        "trade war", "tariff", "protectionism", "ftaap",
+        "trade facilitation", "multilateral", "关税", "贸易便利化", "多边",
+        "APEC",  # 兜底：标题含APEC的都留下
+    ]
 
     result = []
     for a in articles:
         text = (a.get("title", "") + " " + a.get("summary", "")).lower()
-        for w in all_words:
-            if w.lower() in text:
+        for kw in CORE_MATCH:
+            if kw.lower() in text:
                 result.append(a)
                 break
     return result
