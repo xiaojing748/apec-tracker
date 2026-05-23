@@ -1,0 +1,311 @@
+/* ============================================================
+   APEC 2026 动态追踪看板 - 样式表
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --color-bg: #f5f5f5;
+  --color-card: #ffffff;
+  --color-primary: #1a5276;
+  --color-accent: #c0392b;
+  --color-official: #27ae60;
+  --color-media: #2980b9;
+  --color-tag-cbpr: #e74c3c;
+  --color-tag-ai: #8e44ad;
+  --color-tag-connect: #2ecc71;
+  --color-tag-geo: #e67e22;
+  --color-tag-china: #c0392b;
+  --color-tag-other: #7f8c8d;
+  --color-text: #2c3e50;
+  --color-text-light: #7f8c8d;
+  --color-border: #ecf0f1;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --radius: 8px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ---- Header ---- */
+.header {
+  background: linear-gradient(135deg, #1a252f 0%, #1a5276 50%, #1f618d 100%);
+  color: #fff;
+  padding: 24px 0 20px;
+  text-align: center;
+}
+.header h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: 0.5px; }
+.subtitle { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.header-meta {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  opacity: 0.75;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* ---- Layout ---- */
+.layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 20px;
+  padding: 0 16px;
+  min-height: 60vh;
+}
+
+/* ---- Sidebar ---- */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+.filter-group {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+.filter-group:last-of-type { border-bottom: none; }
+.filter-group h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--color-primary);
+}
+.filter-group label {
+  display: block;
+  font-size: 0.82rem;
+  padding: 2px 0;
+  cursor: pointer;
+  color: #555;
+}
+.filter-group input[type="checkbox"] { margin-right: 6px; accent-color: var(--color-primary); }
+.filter-group select,
+.filter-group input[type="text"] {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-family: inherit;
+}
+#searchBox { margin-top: 4px; }
+.btn-reset {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: #666;
+}
+.btn-reset:hover { background: #eee; }
+
+/* ---- Content ---- */
+.content { flex: 1; min-width: 0; }
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+/* ---- Article Card ---- */
+.day-group { margin-bottom: 20px; }
+.day-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: 6px 0 8px;
+  border-bottom: 2px solid var(--color-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.day-label .count {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--color-text-light);
+}
+
+.article-card {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid transparent;
+  transition: box-shadow 0.15s;
+}
+.article-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.article-card.source-official { border-left-color: var(--color-official); }
+.article-card.source-media { border-left-color: var(--color-media); }
+
+.article-card .title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.article-card .title a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+.article-card .title a:hover { color: var(--color-primary); text-decoration: underline; }
+
+.article-card .meta {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.article-card .source-name { font-weight: 500; }
+.article-card .source-badge {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: #fff;
+}
+.badge-official { background: var(--color-official); }
+.badge-media { background: var(--color-media); }
+
+.article-card .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+.tag {
+  font-size: 0.7rem;
+  padding: 1px 8px;
+  border-radius: 10px;
+  color: #fff;
+  white-space: nowrap;
+}
+.tag-数据跨境 { background: var(--color-tag-cbpr); }
+.tag-AI治理 { background: var(--color-tag-ai); }
+.tag-互联互通 { background: var(--color-tag-connect); }
+.tag-地缘政治 { background: var(--color-tag-geo); }
+.tag-2026中国年 { background: var(--color-tag-china); }
+.tag-其他APEC动态 { background: var(--color-tag-other); }
+
+.article-card .summary {
+  font-size: 0.82rem;
+  color: #666;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-light);
+}
+.no-results .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+/* ---- Timeline ---- */
+.timeline-section {
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  padding: 0 16px;
+}
+.timeline-section h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+.timeline {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  padding-bottom: 10px;
+}
+.tl-item {
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+  position: relative;
+  padding: 0 8px;
+}
+.tl-item::after {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: #d5dbdb;
+  z-index: 0;
+}
+.tl-item:last-child::after { display: none; }
+.tl-date {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--color-text-light);
+  margin-bottom: 4px;
+}
+.tl-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d5dbdb;
+  margin: 0 auto 8px;
+  position: relative;
+  z-index: 1;
+}
+.tl-item.past .tl-dot { background: var(--color-official); }
+.tl-item.current .tl-dot {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(192,57,43,0.2);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(192,57,43,0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(192,57,43,0.1); }
+}
+.tl-item.highlight .tl-dot { background: #f39c12; }
+.tl-content strong { display: block; font-size: 0.78rem; }
+.tl-content .tl-loc { font-size: 0.7rem; color: var(--color-text-light); }
+
+/* ---- Footer ---- */
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-light);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--color-border);
+  margin-top: 10px;
+}
+.footer p { margin: 2px 0; }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+  }
+  .filter-group {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .header h1 { font-size: 1.15rem; padding: 0 10px; }
+  .tl-item { min-width: 100px; }
+}

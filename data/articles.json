@@ -1,0 +1,84 @@
+{
+  "last_updated": "2026-05-23 08:00:00",
+  "timezone": "Asia/Shanghai",
+  "total_articles": 8,
+  "status": {
+    "apec_org": "active",
+    "bing_news": "active",
+    "google_news": "active"
+  },
+  "articles": [
+    {
+      "title": "SOM2在上海开幕，聚焦亚太数字化与互联互通合作",
+      "url": "https://www.apec.org/news/2026/05/som2-shanghai-opening",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-05-19",
+      "summary": "2026 APEC第二次高官会（SOM2）于5月11日至19日在上海举行，重点讨论数据跨境流动规则协调、亚太数字基础设施互联互通等议题。",
+      "categories": ["互联互通", "2026中国年"]
+    },
+    {
+      "title": "APEC部长级圆桌会议在苏州召开，聚焦贸易便利化与供应链韧性",
+      "url": "https://www.apec.org/news/2026/05/mrt-suzhou-supply-chain",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-05-22",
+      "summary": "APEC部长级圆桌会议（MRT）于5月22日在苏州开幕，就全球经济不确定性下的供应链韧性与贸易便利化展开讨论。",
+      "categories": ["地缘政治", "2026中国年"]
+    },
+    {
+      "title": "APEC moves forward on CBPR 2.0 framework for cross-border data flows",
+      "url": "https://www.reuters.com/technology/apec-cbpr-2-data-flow-2026-05-20",
+      "source": "Reuters",
+      "source_type": "权威媒体",
+      "date": "2026-05-20",
+      "summary": "APEC economies advance negotiations on the upgraded Cross-Border Privacy Rules (CBPR 2.0) system, aiming to facilitate trusted data flows across the Asia-Pacific region.",
+      "categories": ["数据跨境"]
+    },
+    {
+      "title": "新华网：APEC中国年推动亚太数字经济合作新篇章",
+      "url": "https://www.xinhuanet.com/world/2026-05/21/apec-china-digital-economy.htm",
+      "source": "新华网",
+      "source_type": "权威媒体",
+      "date": "2026-05-21",
+      "summary": "作为APEC 2026东道主，中国提出"建设亚太共同体"愿景，推动数字经济、人工智能治理等领域的区域合作。",
+      "categories": ["互联互通", "AI治理", "2026中国年"]
+    },
+    {
+      "title": "APEC AI governance framework gains traction amid US-China standards rivalry",
+      "url": "https://www.reuters.com/world/apec-ai-governance-2026-05-18",
+      "source": "Reuters",
+      "source_type": "权威媒体",
+      "date": "2026-05-18",
+      "summary": "APEC members debate competing AI governance models proposed by the US and China, seeking common ground on AI safety standards.",
+      "categories": ["AI治理"]
+    },
+    {
+      "title": "APEC Data Privacy Subgroup advances work on cross-border data certification",
+      "url": "https://www.apec.org/groups/ecsg/data-privacy/2026-may-update",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-05-15",
+      "summary": "The ECSG Data Privacy Subgroup reports progress on cross-border data transfer certification mechanisms during SOM2 meetings.",
+      "categories": ["数据跨境", "互联互通"]
+    },
+    {
+      "title": "APEC Supply Chain Connectivity Report warns of trade fragmentation risks",
+      "url": "https://www.ap.org/news/apec-supply-chain-report-2026",
+      "source": "Associated Press",
+      "source_type": "权威媒体",
+      "date": "2026-05-17",
+      "summary": "A new APEC report highlights growing risks to supply chain connectivity from geopolitical tensions and recommends enhanced regional cooperation.",
+      "categories": ["地缘政治"]
+    },
+    {
+      "title": "外交部：中方在APEC推动数字经济与绿色发展双轮驱动",
+      "url": "https://www.fmprc.gov.cn/web/wjdt_674879/202605/t20260520_xxxxx.html",
+      "source": "外交部",
+      "source_type": "官方公报",
+      "date": "2026-05-20",
+      "summary": "外交部发言人在例行记者会上表示，作为APEC 2026东道主，中国推动数字经济与绿色发展双轮驱动，促进亚太地区可持续发展。",
+      "categories": ["互联互通", "2026中国年"]
+    }
+  ]
+}

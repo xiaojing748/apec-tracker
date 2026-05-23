@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEC 2026 网络安全与数据治理动态追踪</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <h1>APEC 2026 网络安全与数据治理 · 动态追踪</h1>
+    <p class="subtitle">"建设亚太共同体，促进共同繁荣" — 2026 APEC中国年</p>
+    <div class="header-meta">
+      <span id="updateTime">加载中...</span>
+      <span id="articleCount"></span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- 左侧筛选面板 -->
+  <aside class="sidebar">
+    <div class="filter-group">
+      <h3>议题分类</h3>
+      <label><input type="checkbox" checked data-filter="category" value="数据跨境"> 数据跨境</label>
+      <label><input type="checkbox" checked data-filter="category" value="AI治理"> AI治理</label>
+      <label><input type="checkbox" checked data-filter="category" value="互联互通"> 互联互通</label>
+      <label><input type="checkbox" checked data-filter="category" value="地缘政治"> 地缘政治</label>
+      <label><input type="checkbox" checked data-filter="category" value="2026中国年"> 2026中国年</label>
+      <label><input type="checkbox" checked data-filter="category" value="其他APEC动态"> 其他</label>
+    </div>
+
+    <div class="filter-group">
+      <h3>来源类型</h3>
+      <label><input type="checkbox" checked data-filter="sourceType" value="官方公报"> 官方公报</label>
+      <label><input type="checkbox" checked data-filter="sourceType" value="权威媒体"> 权威媒体</label>
+    </div>
+
+    <div class="filter-group">
+      <h3>时间范围</h3>
+      <select id="timeFilter">
+        <option value="all">全部时间</option>
+        <option value="1">今天</option>
+        <option value="3">最近3天</option>
+        <option value="7" selected>最近一周</option>
+        <option value="30">最近一月</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <h3>搜索</h3>
+      <input type="text" id="searchBox" placeholder="搜索标题或来源...">
+    </div>
+
+    <button id="resetFilters" class="btn-reset">重置全部筛选</button>
+  </aside>
+
+  <!-- 右侧文章列表 -->
+  <main class="content" id="content">
+    <div class="loading">加载中...</div>
+  </main>
+</div>
+
+<!-- 2026中国年会议日历 -->
+<section class="timeline-section">
+  <h2>2026 APEC中国年 · 关键会议日历</h2>
+  <div class="timeline">
+    <div class="tl-item past">
+      <span class="tl-date">2026.02</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>SOM1 及相关会议</strong>
+        <span class="tl-loc">📍 哈尔滨</span>
+      </div>
+    </div>
+    <div class="tl-item past">
+      <span class="tl-date">2026.05.11-19</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>SOM2 第二次高官会</strong>
+        <span class="tl-loc">📍 上海</span>
+      </div>
+    </div>
+    <div class="tl-item current">
+      <span class="tl-date">2026.05.22-23</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>MRT 部长级圆桌会议</strong>
+        <span class="tl-loc">📍 苏州</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-date">2026.07</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>成都数字周 + 数字/AI部长会</strong>
+        <span class="tl-loc">📍 成都</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-date">2026.08</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>SOM3 第三次高官会</strong>
+        <span class="tl-loc">📍 大连</span>
+      </div>
+    </div>
+    <div class="tl-item highlight">
+      <span class="tl-date">2026.11</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>APEC领导人非正式峰会</strong>
+        <span class="tl-loc">📍 深圳</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>数据来源：APEC官网、权威媒体公开报道  |  所有信息保留原始链接，可溯源验证</p>
+  <p>自动更新于每日北京时间 08:00  |  Powered by GitHub Actions</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
