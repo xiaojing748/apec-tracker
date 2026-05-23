@@ -114,6 +114,19 @@ body {
 }
 .btn-reset:hover { background: #eee; }
 
+/* ---- Stats Bar ---- */
+.stats-bar {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+}
+.stats-bar strong { color: var(--color-primary); }
+
 /* ---- Content ---- */
 .content { flex: 1; min-width: 0; }
 .loading {

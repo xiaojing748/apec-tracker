@@ -1,5 +1,5 @@
 """APEC 动态追踪 - 主爬虫入口
-GitHub Actions 每天调用此脚本，采集 → 过滤 → 输出JSON
+GitHub Actions 每天调用此脚本，采集 → 过滤 → 增量合并 → 输出JSON
 """
 
 import os
@@ -12,11 +12,15 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from scraper.sources import apec_org, bing_news, google_news
 from scraper.filters import apply as apply_filters
-from scraper.output import write_json
+from scraper.output import load_existing, merge_articles, write_json
 
 
 def main():
     print(f"[{datetime.now()}] APEC动态追踪采集开始...")
+
+    # 加载历史数据
+    existing = load_existing()
+    print(f"  已有 {len(existing)} 条历史数据")
 
     all_articles = []
 
@@ -50,17 +54,19 @@ def main():
         print(f"        Bing News采集出错: {e}")
 
     # 过滤：去重 → 域名白名单 → 关键词匹配
-    print(f"\n  采集完成，共 {len(all_articles)} 条（去重前）")
-    filtered = apply_filters(all_articles)
-    print(f"  过滤后剩余 {len(filtered)} 条")
+    print(f"\n  采集完成，共 {len(all_articles)} 条（过滤前）")
+    new_filtered = apply_filters(all_articles)
+    print(f"  过滤后 {len(new_filtered)} 条新数据")
 
-    # 按日期排序，最新的在前
-    filtered.sort(key=lambda x: x.get("date", ""), reverse=True)
+    # 增量合并：新旧数据合并，按URL去重
+    all_filtered = merge_articles(existing, new_filtered)
+    new_added = len(all_filtered) - len(existing)
+    print(f"  合并完成，新增 {max(0, new_added)} 条，总计 {len(all_filtered)} 条")
 
     # 写入JSON
-    output_path = write_json(filtered)
+    output_path = write_json(all_filtered)
     print(f"  已写入: {output_path}")
-    print(f"[{datetime.now()}] 采集完成！共收录 {len(filtered)} 条APEC动态")
+    print(f"[{datetime.now()}] 采集完成！")
 
 
 if __name__ == "__main__":
