@@ -229,6 +229,8 @@ body {
 .tag-AI治理 { background: var(--color-tag-ai); }
 .tag-互联互通 { background: var(--color-tag-connect); }
 .tag-地缘政治 { background: var(--color-tag-geo); }
+.tag-供应链安全 { background: #16a085; }
+.tag-网络犯罪 { background: #c0392b; }
 .tag-2026中国年 { background: var(--color-tag-china); }
 .tag-其他APEC动态 { background: var(--color-tag-other); }
 
@@ -366,6 +368,8 @@ body {
       <label><input type="checkbox" checked data-filter="category" value="AI治理"> AI治理</label>
       <label><input type="checkbox" checked data-filter="category" value="互联互通"> 互联互通</label>
       <label><input type="checkbox" checked data-filter="category" value="地缘政治"> 地缘政治</label>
+      <label><input type="checkbox" checked data-filter="category" value="供应链安全"> 供应链安全</label>
+      <label><input type="checkbox" checked data-filter="category" value="网络犯罪"> 网络犯罪</label>
       <label><input type="checkbox" checked data-filter="category" value="2026中国年"> 2026中国年</label>
       <label><input type="checkbox" checked data-filter="category" value="其他APEC动态"> 其他</label>
     </div>
@@ -487,7 +491,7 @@ body {
   var DATA_URL = '../data/articles.json';
   var allArticles = [];
   var activeFilters = {
-    categories: new Set(['数据跨境', 'AI治理', '互联互通', '地缘政治', '2026中国年', '其他APEC动态']),
+    categories: new Set(['数据跨境', 'AI治理', '互联互通', '地缘政治', '供应链安全', '网络犯罪', '2026中国年', '其他APEC动态']),
     sourceTypes: new Set(['官方公报', '权威媒体']),
     timeRange: '7',
     month: '',
@@ -592,7 +596,7 @@ body {
       document.getElementById('timeFilter').value = '7';
       document.getElementById('monthFilter').value = '';
       document.getElementById('searchBox').value = '';
-      activeFilters.categories = new Set(['数据跨境', 'AI治理', '互联互通', '地缘政治', '2026中国年', '其他APEC动态']);
+      activeFilters.categories = new Set(['数据跨境', 'AI治理', '互联互通', '地缘政治', '供应链安全', '网络犯罪', '2026中国年', '其他APEC动态']);
       activeFilters.sourceTypes = new Set(['官方公报', '权威媒体']);
       activeFilters.timeRange = '7';
       activeFilters.month = '';

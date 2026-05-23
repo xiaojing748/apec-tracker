@@ -222,6 +222,8 @@ body {
 .tag-AI治理 { background: var(--color-tag-ai); }
 .tag-互联互通 { background: var(--color-tag-connect); }
 .tag-地缘政治 { background: var(--color-tag-geo); }
+.tag-供应链安全 { background: #16a085; }
+.tag-网络犯罪 { background: #c0392b; }
 .tag-2026中国年 { background: var(--color-tag-china); }
 .tag-其他APEC动态 { background: var(--color-tag-other); }
 
