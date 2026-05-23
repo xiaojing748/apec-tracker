@@ -35,12 +35,13 @@ jobs:
           cp data/articles.json web/data/articles.json
           cp data/articles.json docs/data/articles.json
           cp index.html docs/index.html
+          TOTAL=$(python -c "import json;d=json.load(open('data/articles.json'));print(d['total_articles'])")
           git config user.name "APEC Bot"
           git config user.email "bot@apec-tracker.local"
           git add data/articles.json web/data/articles.json docs/ index.html "APEC动态看板.html"
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update: $(date +'%Y-%m-%d')"
+            git commit -m "Update: $(date +'%Y-%m-%d') [${TOTAL} articles]"
             git push
           fi

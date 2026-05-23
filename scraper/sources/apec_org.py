@@ -31,6 +31,7 @@ def _fetch_rss():
     for rss_url in rss_urls:
         try:
             feed = feedparser.parse(rss_url)
+            print(f"        RSS: {rss_url} -> {len(feed.entries)} entries (bozo={feed.get('bozo', 0)})")
             for entry in feed.entries:
                 pub_date = None
                 if hasattr(entry, "published_parsed") and entry.published_parsed:
