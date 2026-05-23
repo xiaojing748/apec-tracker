@@ -1,14 +1,13 @@
 /* ============================================================
    APEC 2026 动态追踪看板 - 前端交互
-   支持：实时筛选、历史归档、关键词搜索
    ============================================================ */
 
 (function () {
   'use strict';
 
-  const DATA_URL = 'data/articles.json';
-  let allArticles = [];
-  let activeFilters = {
+  var DATA_URL = 'data/articles.json';
+  var allArticles = [];
+  var activeFilters = {
     categories: new Set(['数据跨境', 'AI治理', '互联互通', '地缘政治', '2026中国年', '其他APEC动态']),
     sourceTypes: new Set(['官方公报', '权威媒体']),
     timeRange: '7',
@@ -17,41 +16,41 @@
   };
 
   // ---- 初始化 ----
-  async function init() {
-    var data = null;
+  function init() {
     if (window.__APEC_DATA__) {
-      data = window.__APEC_DATA__;
+      loadData(window.__APEC_DATA__);
     } else {
-      try {
-        var resp = await fetch(DATA_URL);
-        if (resp.ok) data = await resp.json();
-      } catch (e) {
-        console.error('加载数据失败:', e);
-      }
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', DATA_URL, true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          try { loadData(JSON.parse(xhr.responseText)); } catch (e) { showError(); }
+        } else { showError(); }
+      };
+      xhr.onerror = showError;
+      xhr.send();
     }
-    if (data) {
-      allArticles = data.articles || [];
-      document.getElementById('updateTime').textContent =
-        '最后更新：' + (data.last_updated || '未知');
-      // 更新统计
-      updateStats(data);
-      // 填充月份选择器
-      populateMonths();
-    } else {
-      allArticles = [];
-      document.getElementById('updateTime').textContent = '数据加载失败，请稍后刷新';
-    }
+  }
+
+  function loadData(data) {
+    allArticles = data.articles || [];
+    document.getElementById('updateTime').textContent = '最后更新：' + (data.last_updated || '未知');
+    updateStats(data);
+    populateMonths();
     bindFilters();
-    render();
+    applyFilters();
+  }
+
+  function showError() {
+    allArticles = [];
+    document.getElementById('updateTime').textContent = '数据加载失败，请刷新重试';
+    document.getElementById('content').innerHTML = '<div class="no-results"><p>数据加载失败</p></div>';
   }
 
   function updateStats(data) {
-    var total = data.total_articles || allArticles.length;
-    var todayCount = data.today_count || 0;
-    var monthlyCount = data.monthly_count || 0;
-    document.getElementById('statTotal').textContent = total;
-    document.getElementById('statMonth').textContent = monthlyCount;
-    document.getElementById('statToday').textContent = todayCount;
+    document.getElementById('statTotal').textContent = data.total_articles || allArticles.length;
+    document.getElementById('statMonth').textContent = data.monthly_count || 0;
+    document.getElementById('statToday').textContent = data.today_count || 0;
   }
 
   function populateMonths() {
@@ -62,7 +61,6 @@
     });
     var sorted = Object.keys(months).sort().reverse();
     var sel = document.getElementById('monthFilter');
-    // 保留第一个默认选项，清空后面的
     while (sel.options.length > 1) sel.remove(1);
     sorted.forEach(function (m) {
       var opt = document.createElement('option');
@@ -72,50 +70,46 @@
     });
   }
 
-  // ---- 绑定筛选器事件 ----
+  // ---- 筛选器事件 ----
   function bindFilters() {
-    document.querySelectorAll('[data-filter="category"]').forEach(function (cb) {
-      cb.addEventListener('change', function () {
-        updateCategoryFilter();
-        render();
-      });
-    });
+    var cats = document.querySelectorAll('[data-filter="category"]');
+    for (var i = 0; i < cats.length; i++) {
+      cats[i].onchange = function () { updateCategoryFilter(); applyFilters(); };
+    }
 
-    document.querySelectorAll('[data-filter="sourceType"]').forEach(function (cb) {
-      cb.addEventListener('change', function () {
-        updateSourceTypeFilter();
-        render();
-      });
-    });
+    var srcs = document.querySelectorAll('[data-filter="sourceType"]');
+    for (var j = 0; j < srcs.length; j++) {
+      srcs[j].onchange = function () { updateSourceTypeFilter(); applyFilters(); };
+    }
 
-    document.getElementById('timeFilter').addEventListener('change', function () {
+    document.getElementById('timeFilter').onchange = function () {
       activeFilters.timeRange = this.value;
-      // 选择了具体天数后，清除月份筛选
       if (this.value !== 'all') {
         document.getElementById('monthFilter').value = '';
         activeFilters.month = '';
       }
-      render();
-    });
+      applyFilters();
+    };
 
-    document.getElementById('monthFilter').addEventListener('change', function () {
+    document.getElementById('monthFilter').onchange = function () {
       activeFilters.month = this.value;
-      // 选择了具体月份后，清除天数筛选
       if (this.value) {
         document.getElementById('timeFilter').value = 'all';
         activeFilters.timeRange = 'all';
       }
-      render();
-    });
+      applyFilters();
+    };
 
-    document.getElementById('searchBox').addEventListener('input', function () {
+    document.getElementById('searchBox').oninput = function () {
       activeFilters.search = this.value.trim().toLowerCase();
-      render();
-    });
+      applyFilters();
+    };
 
-    document.getElementById('resetFilters').addEventListener('click', function () {
-      document.querySelectorAll('[data-filter="category"]').forEach(function (cb) { cb.checked = true; });
-      document.querySelectorAll('[data-filter="sourceType"]').forEach(function (cb) { cb.checked = true; });
+    document.getElementById('resetFilters').onclick = function () {
+      var allCats = document.querySelectorAll('[data-filter="category"]');
+      for (var k = 0; k < allCats.length; k++) { allCats[k].checked = true; }
+      var allSrcs = document.querySelectorAll('[data-filter="sourceType"]');
+      for (var l = 0; l < allSrcs.length; l++) { allSrcs[l].checked = true; }
       document.getElementById('timeFilter').value = '7';
       document.getElementById('monthFilter').value = '';
       document.getElementById('searchBox').value = '';
@@ -124,59 +118,69 @@
       activeFilters.timeRange = '7';
       activeFilters.month = '';
       activeFilters.search = '';
-      render();
-    });
+      applyFilters();
+    };
+
+    // 刷新按钮
+    document.getElementById('btnRefresh').onclick = function () {
+      applyFilters();
+    };
   }
 
   function updateCategoryFilter() {
     activeFilters.categories = new Set();
-    document.querySelectorAll('[data-filter="category"]:checked').forEach(function (cb) {
-      activeFilters.categories.add(cb.value);
-    });
+    var checked = document.querySelectorAll('[data-filter="category"]:checked');
+    for (var i = 0; i < checked.length; i++) {
+      activeFilters.categories.add(checked[i].value);
+    }
   }
 
   function updateSourceTypeFilter() {
     activeFilters.sourceTypes = new Set();
-    document.querySelectorAll('[data-filter="sourceType"]:checked').forEach(function (cb) {
-      activeFilters.sourceTypes.add(cb.value);
-    });
+    var checked = document.querySelectorAll('[data-filter="sourceType"]:checked');
+    for (var i = 0; i < checked.length; i++) {
+      activeFilters.sourceTypes.add(checked[i].value);
+    }
   }
 
-  // ---- 过滤逻辑 ----
+  // ---- 过滤 + 渲染 ----
+  function applyFilters() {
+    var filtered = getFilteredArticles();
+    document.getElementById('articleCount').textContent =
+      filtered.length > 0 ? '显示 ' + filtered.length + ' 篇' : '无匹配结果';
+    renderArticles(filtered);
+  }
+
   function getFilteredArticles() {
     if (!allArticles.length) return [];
 
     var now = new Date();
-    var filtered = allArticles;
+    var filtered = allArticles.slice();
 
-    // 月份筛选（精确到月）
+    // 月份筛选
     if (activeFilters.month) {
       filtered = filtered.filter(function (a) {
         return (a.date || '').substring(0, 7) === activeFilters.month;
       });
-    } else {
-      // 时间范围筛选（相对天数）
-      if (activeFilters.timeRange !== 'all') {
-        var days = parseInt(activeFilters.timeRange, 10);
-        var cutoff = new Date(now);
-        cutoff.setDate(cutoff.getDate() - days);
-        var cutoffStr = cutoff.toISOString().slice(0, 10);
-        filtered = filtered.filter(function (a) { return a.date >= cutoffStr; });
-      }
+    } else if (activeFilters.timeRange !== 'all') {
+      var days = parseInt(activeFilters.timeRange, 10);
+      var cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+      var cutoffStr = formatDate(cutoff);
+      filtered = filtered.filter(function (a) { return (a.date || '') >= cutoffStr; });
     }
 
-    // 议题分类过滤
+    // 议题分类
     filtered = filtered.filter(function (a) {
       var cats = a.categories || ['其他APEC动态'];
       return cats.some(function (c) { return activeFilters.categories.has(c); });
     });
 
-    // 来源类型过滤
+    // 来源类型
     filtered = filtered.filter(function (a) {
       return activeFilters.sourceTypes.has(a.source_type || '权威媒体');
     });
 
-    // 搜索过滤
+    // 搜索
     if (activeFilters.search) {
       var s = activeFilters.search;
       filtered = filtered.filter(function (a) {
@@ -189,19 +193,24 @@
     return filtered;
   }
 
-  // ---- 渲染 ----
-  function render() {
+  function formatDate(d) {
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1);
+    var day = String(d.getDate());
+    if (m.length === 1) m = '0' + m;
+    if (day.length === 1) day = '0' + day;
+    return y + '-' + m + '-' + day;
+  }
+
+  function renderArticles(filtered) {
     var content = document.getElementById('content');
-    var filtered = getFilteredArticles();
-    document.getElementById('articleCount').textContent =
-      filtered.length > 0 ? '显示 ' + filtered.length + ' 篇' : '';
 
     if (!filtered.length) {
       content.innerHTML =
         '<div class="no-results">' +
-        '<div class="icon">&#x1F4ED;</div>' +
+        '<div class="icon" style="font-size:2.5rem">📭</div>' +
         '<p>没有匹配的动态</p>' +
-        '<p style="font-size:0.8rem;margin-top:4px;">试试调整筛选条件或扩大时间范围</p>' +
+        '<p style="font-size:0.8rem;margin-top:4px;">试试调整筛选条件或点刷新按钮</p>' +
         '</div>';
       return;
     }
@@ -214,38 +223,35 @@
       grouped[d].push(a);
     });
 
-    // 排序：最新日期在前
     var sortedDates = Object.keys(grouped).sort(function (a, b) { return b.localeCompare(a); });
 
     var html = '';
     sortedDates.forEach(function (date) {
       var articles = grouped[date];
       html += '<div class="day-group">' +
-        '<div class="day-label">' +
-        date +
-        '<span class="count">' + articles.length + ' 篇</span>' +
-        '</div>';
+        '<div class="day-label">' + date +
+        '<span class="count">' + articles.length + ' 篇</span></div>';
 
       articles.forEach(function (a) {
         var srcClass = a.source_type === '官方公报' ? 'source-official' : 'source-media';
         var badgeClass = a.source_type === '官方公报' ? 'badge-official' : 'badge-media';
+        var badgeText = a.source_type || '权威媒体';
+
         html += '<div class="article-card ' + srcClass + '">' +
-          '<div class="title">' +
-          '<a href="' + escapeHtml(a.url) + '" target="_blank" rel="noopener">' + escapeHtml(a.title) + '</a>' +
-          '</div>' +
+          '<div class="title"><a href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.title) + '</a></div>' +
           '<div class="meta">' +
-          '<span class="source-name">' + escapeHtml(a.source || '') + '</span>' +
-          '<span class="source-badge ' + badgeClass + '">' + escapeHtml(a.source_type || '') + '</span>' +
+          '<span class="source-name">' + esc(a.source || '') + '</span>' +
+          '<span class="source-badge ' + badgeClass + '">' + esc(badgeText) + '</span>' +
           '</div>';
 
         if (a.summary) {
-          html += '<div class="summary">' + escapeHtml(a.summary) + '</div>';
+          html += '<div class="summary">' + esc(a.summary) + '</div>';
         }
 
         if (a.categories && a.categories.length) {
           html += '<div class="tags">';
           a.categories.forEach(function (cat) {
-            html += '<span class="tag tag-' + cat + '">' + escapeHtml(cat) + '</span>';
+            html += '<span class="tag tag-' + cat + '">' + esc(cat) + '</span>';
           });
           html += '</div>';
         }
@@ -259,11 +265,9 @@
     content.innerHTML = html;
   }
 
-  function escapeHtml(str) {
+  function esc(str) {
     if (!str) return '';
-    var div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   // ---- 启动 ----

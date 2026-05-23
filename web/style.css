@@ -113,6 +113,19 @@ body {
   color: #666;
 }
 .btn-reset:hover { background: #eee; }
+.btn-refresh {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: var(--color-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.btn-refresh:hover { background: #2471a3; }
 
 /* ---- Stats Bar ---- */
 .stats-bar {
