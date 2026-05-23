@@ -2,13 +2,17 @@
 GitHub Actions 每天调用此脚本，采集 → 过滤 → 输出JSON
 """
 
+import os
 import sys
 import time
 from datetime import datetime
 
-from sources import apec_org, bing_news, google_news
-from filters import apply as apply_filters
-from output import write_json
+# 确保项目根目录在 sys.path 中
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from scraper.sources import apec_org, bing_news, google_news
+from scraper.filters import apply as apply_filters
+from scraper.output import write_json
 
 
 def main():

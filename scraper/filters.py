@@ -2,7 +2,7 @@
 
 from urllib.parse import urlparse
 
-from . import config
+from scraper import config
 
 
 def deduplicate(articles):

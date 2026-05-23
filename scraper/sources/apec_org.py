@@ -8,7 +8,7 @@ import feedparser
 import requests
 from bs4 import BeautifulSoup
 
-from .. import config
+from scraper import config
 
 
 def fetch_news():

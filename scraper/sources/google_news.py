@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 import feedparser
 import requests
 
-from .. import config
+from scraper import config
 
 
 def search_all_keywords():

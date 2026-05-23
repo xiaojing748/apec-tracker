@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 
 import requests
 
-from .. import config
+from scraper import config
 
 
 def search_all_keywords():
