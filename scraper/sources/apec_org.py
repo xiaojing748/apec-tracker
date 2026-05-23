@@ -1,10 +1,11 @@
-"""APEC 官方网站爬虫 - 从 apec.org 获取新闻和出版物"""
+"""APEC 官方网站爬虫 - 使用原始XML解析RSS，不依赖feedparser"""
 
 import re
+import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from urllib.parse import urljoin
 
-import feedparser
 import requests
 from bs4 import BeautifulSoup
 
@@ -20,46 +21,68 @@ def fetch_news():
 
 
 def _fetch_rss():
-    """从 APEC 官网 RSS Feed 获取新闻"""
+    """使用原始XML解析APEC RSS Feed"""
     articles = []
-    rss_urls = [
-        "https://www.apec.org/feeds/rss",
-        "https://www.apec.org/feed",
-    ]
+    rss_url = "https://www.apec.org/feeds/rss"
     cutoff = datetime.now(timezone.utc) - timedelta(days=config.MAX_DAYS_LOOKBACK)
 
-    for rss_url in rss_urls:
-        try:
-            feed = feedparser.parse(rss_url)
-            print(f"        RSS: {rss_url} -> {len(feed.entries)} entries (bozo={feed.get('bozo', 0)})")
-            for entry in feed.entries:
-                pub_date = None
-                if hasattr(entry, "published_parsed") and entry.published_parsed:
-                    pub_date = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
-                elif hasattr(entry, "updated_parsed") and entry.updated_parsed:
-                    pub_date = datetime(*entry.updated_parsed[:6], tzinfo=timezone.utc)
+    try:
+        resp = requests.get(rss_url, timeout=config.REQUEST_TIMEOUT, headers={
+            "User-Agent": "Mozilla/5.0 (compatible; APECTracker/1.0)"
+        })
+        resp.raise_for_status()
 
-                if pub_date and pub_date < cutoff:
-                    continue
+        root = ET.fromstring(resp.text)
+        ns = {"a10": "http://www.w3.org/2005/Atom"}
+        items = root.findall(".//item")
+        print(f"        RSS: {rss_url} -> {len(items)} items")
 
-                title = entry.get("title", "").strip()
-                link = entry.get("link", "").strip()
-                summary = _clean_html(entry.get("summary", entry.get("description", "")))
+        for item in items:
+            title = ""
+            link = ""
+            pub_date = None
+            summary = ""
 
-                if title and link:
-                    categories = config.classify_article(title, summary)
-                    articles.append({
-                        "title": title,
-                        "url": link,
-                        "source": "APEC官网",
-                        "source_type": "官方公报",
-                        "date": pub_date.strftime("%Y-%m-%d") if pub_date else datetime.now().strftime("%Y-%m-%d"),
-                        "summary": summary[:300] if summary else "",
-                        "categories": categories,
-                    })
-            break  # 如果第一个RSS成功就不试第二个
-        except Exception:
-            continue
+            title_el = item.find("title")
+            link_el = item.find("link")
+            desc_el = item.find("description")
+            date_el = item.find("pubDate")
+
+            if title_el is not None and title_el.text:
+                title = title_el.text.strip()
+            if link_el is not None and link_el.text:
+                link = link_el.text.strip()
+            if desc_el is not None and desc_el.text:
+                summary = _clean_html(desc_el.text)
+            if date_el is not None and date_el.text:
+                try:
+                    pub_date = parsedate_to_datetime(date_el.text.strip())
+                except Exception:
+                    pass
+
+            if not title or not link:
+                continue
+
+            if pub_date and pub_date < cutoff:
+                continue
+
+            date_str = pub_date.strftime("%Y-%m-%d") if pub_date else datetime.now().strftime("%Y-%m-%d")
+            categories = config.classify_article(title, summary)
+
+            articles.append({
+                "title": title,
+                "url": link,
+                "source": "APEC官网",
+                "source_type": "官方公报",
+                "date": date_str,
+                "summary": summary[:300] if summary else "",
+                "categories": categories,
+            })
+
+        print(f"        RSS after filter: {len(articles)} articles")
+
+    except Exception as e:
+        print(f"        RSS parse error: {e}")
 
     return articles
 
@@ -76,7 +99,7 @@ def _fetch_news_page():
     for url in news_urls:
         try:
             resp = requests.get(url, timeout=config.REQUEST_TIMEOUT, headers={
-                "User-Agent": "Mozilla/5.0 (compatible; APECTracker/1.0; +https://github.com/apec-tracker)"
+                "User-Agent": "Mozilla/5.0 (compatible; APECTracker/1.0)"
             })
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "lxml")
@@ -96,7 +119,7 @@ def _fetch_news_page():
 
                 if not title or not link:
                     continue
-                if pub_date < cutoff:
+                if pub_date and pub_date.replace(tzinfo=timezone.utc) < cutoff:
                     continue
 
                 categories = config.classify_article(title)
@@ -105,7 +128,7 @@ def _fetch_news_page():
                     "url": link,
                     "source": "APEC官网",
                     "source_type": "官方公报",
-                    "date": pub_date.strftime("%Y-%m-%d"),
+                    "date": pub_date.strftime("%Y-%m-%d") if pub_date else datetime.now().strftime("%Y-%m-%d"),
                     "summary": "",
                     "categories": categories,
                 })
@@ -116,7 +139,6 @@ def _fetch_news_page():
 
 
 def _clean_html(html_text):
-    """去除HTML标签"""
     if not html_text:
         return ""
     clean = re.sub(r"<[^>]+>", " ", html_text)
@@ -125,7 +147,6 @@ def _clean_html(html_text):
 
 
 def _parse_date(date_str):
-    """尝试解析多种日期格式"""
     formats = [
         "%Y-%m-%d", "%d %B %Y", "%B %d, %Y", "%d/%m/%Y",
         "%m/%d/%Y", "%Y/%m/%d", "%d-%m-%Y",
