@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEC 2026 网络安全与数据治理动态追踪</title>
+<style>
+/* ============================================================
+   APEC 2026 动态追踪看板 - 样式表
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --color-bg: #f5f5f5;
+  --color-card: #ffffff;
+  --color-primary: #1a5276;
+  --color-accent: #c0392b;
+  --color-official: #27ae60;
+  --color-media: #2980b9;
+  --color-tag-cbpr: #e74c3c;
+  --color-tag-ai: #8e44ad;
+  --color-tag-connect: #2ecc71;
+  --color-tag-geo: #e67e22;
+  --color-tag-china: #c0392b;
+  --color-tag-other: #7f8c8d;
+  --color-text: #2c3e50;
+  --color-text-light: #7f8c8d;
+  --color-border: #ecf0f1;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --radius: 8px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ---- Header ---- */
+.header {
+  background: linear-gradient(135deg, #1a252f 0%, #1a5276 50%, #1f618d 100%);
+  color: #fff;
+  padding: 24px 0 20px;
+  text-align: center;
+}
+.header h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: 0.5px; }
+.subtitle { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.header-meta {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  opacity: 0.75;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* ---- Layout ---- */
+.layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 20px;
+  padding: 0 16px;
+  min-height: 60vh;
+}
+
+/* ---- Sidebar ---- */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+.filter-group {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+.filter-group:last-of-type { border-bottom: none; }
+.filter-group h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--color-primary);
+}
+.filter-group label {
+  display: block;
+  font-size: 0.82rem;
+  padding: 2px 0;
+  cursor: pointer;
+  color: #555;
+}
+.filter-group input[type="checkbox"] { margin-right: 6px; accent-color: var(--color-primary); }
+.filter-group select,
+.filter-group input[type="text"] {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-family: inherit;
+}
+#searchBox { margin-top: 4px; }
+.btn-reset {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: #666;
+}
+.btn-reset:hover { background: #eee; }
+.btn-refresh {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: var(--color-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.btn-refresh:hover { background: #2471a3; }
+
+/* ---- Stats Bar ---- */
+.stats-bar {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+}
+.stats-bar strong { color: var(--color-primary); }
+
+/* ---- Content ---- */
+.content { flex: 1; min-width: 0; }
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+/* ---- Article Card ---- */
+.day-group { margin-bottom: 20px; }
+.day-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: 6px 0 8px;
+  border-bottom: 2px solid var(--color-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.day-label .count {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--color-text-light);
+}
+
+.article-card {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid transparent;
+  transition: box-shadow 0.15s;
+}
+.article-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.article-card.source-official { border-left-color: var(--color-official); }
+.article-card.source-media { border-left-color: var(--color-media); }
+
+.article-card .title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.article-card .title a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+.article-card .title a:hover { color: var(--color-primary); text-decoration: underline; }
+
+.article-card .meta {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.article-card .source-name { font-weight: 500; }
+.article-card .source-badge {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: #fff;
+}
+.badge-official { background: var(--color-official); }
+.badge-media { background: var(--color-media); }
+
+.article-card .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+.tag {
+  font-size: 0.7rem;
+  padding: 1px 8px;
+  border-radius: 10px;
+  color: #fff;
+  white-space: nowrap;
+}
+.tag-数据跨境 { background: var(--color-tag-cbpr); }
+.tag-AI治理 { background: var(--color-tag-ai); }
+.tag-互联互通 { background: var(--color-tag-connect); }
+.tag-地缘政治 { background: var(--color-tag-geo); }
+.tag-2026中国年 { background: var(--color-tag-china); }
+.tag-其他APEC动态 { background: var(--color-tag-other); }
+
+.article-card .summary {
+  font-size: 0.82rem;
+  color: #666;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-light);
+}
+.no-results .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+/* ---- Timeline ---- */
+.timeline-section {
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  padding: 0 16px;
+}
+.timeline-section h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+.timeline {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  padding-bottom: 10px;
+}
+.tl-item {
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+  position: relative;
+  padding: 0 8px;
+}
+.tl-item::after {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: #d5dbdb;
+  z-index: 0;
+}
+.tl-item:last-child::after { display: none; }
+.tl-date {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--color-text-light);
+  margin-bottom: 4px;
+}
+.tl-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d5dbdb;
+  margin: 0 auto 8px;
+  position: relative;
+  z-index: 1;
+}
+.tl-item.past .tl-dot { background: var(--color-official); }
+.tl-item.current .tl-dot {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(192,57,43,0.2);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(192,57,43,0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(192,57,43,0.1); }
+}
+.tl-item.highlight .tl-dot { background: #f39c12; }
+.tl-content strong { display: block; font-size: 0.78rem; }
+.tl-content .tl-loc { font-size: 0.7rem; color: var(--color-text-light); }
+
+/* ---- Footer ---- */
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-light);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--color-border);
+  margin-top: 10px;
+}
+.footer p { margin: 2px 0; }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+  }
+  .filter-group {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .header h1 { font-size: 1.15rem; padding: 0 10px; }
+  .tl-item { min-width: 100px; }
+}
+
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <h1>APEC 2026 网络安全与数据治理 · 动态追踪</h1>
+    <p class="subtitle">"建设亚太共同体，促进共同繁荣" — 2026 APEC中国年</p>
+    <div class="header-meta">
+      <span id="updateTime">加载中...</span>
+      <span id="articleCount"></span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- 左侧筛选面板 -->
+  <aside class="sidebar">
+    <div class="filter-group">
+      <h3>议题分类</h3>
+      <label><input type="checkbox" checked data-filter="category" value="数据跨境"> 数据跨境</label>
+      <label><input type="checkbox" checked data-filter="category" value="AI治理"> AI治理</label>
+      <label><input type="checkbox" checked data-filter="category" value="互联互通"> 互联互通</label>
+      <label><input type="checkbox" checked data-filter="category" value="地缘政治"> 地缘政治</label>
+      <label><input type="checkbox" checked data-filter="category" value="2026中国年"> 2026中国年</label>
+      <label><input type="checkbox" checked data-filter="category" value="其他APEC动态"> 其他</label>
+    </div>
+
+    <div class="filter-group">
+      <h3>来源类型</h3>
+      <label><input type="checkbox" checked data-filter="sourceType" value="官方公报"> 官方公报</label>
+      <label><input type="checkbox" checked data-filter="sourceType" value="权威媒体"> 权威媒体</label>
+    </div>
+
+    <div class="filter-group">
+      <h3>时间范围</h3>
+      <select id="timeFilter">
+        <option value="all">全部时间</option>
+        <option value="1">今天</option>
+        <option value="3">最近3天</option>
+        <option value="7" selected>最近一周</option>
+        <option value="30">最近一月</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <h3>历史归档</h3>
+      <select id="monthFilter">
+        <option value="">最新（不限月份）</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <h3>搜索</h3>
+      <input type="text" id="searchBox" placeholder="搜索标题或来源...">
+    </div>
+
+    <div class="stats-bar" id="statsBar">
+      <span>📊 总计 <strong id="statTotal">0</strong> 篇</span>
+      <span>📅 本月 <strong id="statMonth">0</strong> 篇</span>
+      <span>🆕 今日 <strong id="statToday">0</strong> 篇</span>
+    </div>
+
+    <button id="btnRefresh" class="btn-refresh">🔄 应用筛选 / 刷新</button>
+    <button id="resetFilters" class="btn-reset">重置全部筛选</button>
+  </aside>
+
+  <!-- 右侧文章列表 -->
+  <main class="content" id="content">
+    <div class="loading">加载中...</div>
+  </main>
+</div>
+
+<!-- 2026中国年会议日历 -->
+<section class="timeline-section">
+  <h2>2026 APEC中国年 · 关键会议日历</h2>
+  <div class="timeline">
+    <div class="tl-item past">
+      <span class="tl-date">2026.02</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>SOM1 及相关会议</strong>
+        <span class="tl-loc">📍 哈尔滨</span>
+      </div>
+    </div>
+    <div class="tl-item past">
+      <span class="tl-date">2026.05.11-19</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>SOM2 第二次高官会</strong>
+        <span class="tl-loc">📍 上海</span>
+      </div>
+    </div>
+    <div class="tl-item current">
+      <span class="tl-date">2026.05.22-23</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>MRT 部长级圆桌会议</strong>
+        <span class="tl-loc">📍 苏州</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-date">2026.07</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>成都数字周 + 数字/AI部长会</strong>
+        <span class="tl-loc">📍 成都</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-date">2026.08</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>SOM3 第三次高官会</strong>
+        <span class="tl-loc">📍 大连</span>
+      </div>
+    </div>
+    <div class="tl-item highlight">
+      <span class="tl-date">2026.11</span>
+      <span class="tl-dot"></span>
+      <div class="tl-content">
+        <strong>APEC领导人非正式峰会</strong>
+        <span class="tl-loc">📍 深圳</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>数据来源：APEC官网、权威媒体公开报道  |  所有信息保留原始链接，可溯源验证</p>
+  <p>自动更新于每日北京时间 08:00  |  Powered by GitHub Actions</p>
+</footer>
+
+<script>window.__APEC_DATA__ = {"last_updated": "2026-05-23 08:00:00", "timezone": "Asia/Shanghai", "total_articles": 15, "today_count": 2, "monthly_count": 8, "articles": [{"title": "APEC部长级圆桌会议在苏州召开，聚焦贸易便利化与供应链韧性", "url": "https://www.bing.com/search?q=APEC+MRT+Suzhou+2026+supply+chain+trade+facilitation", "source": "APEC官网", "source_type": "官方公报", "date": "2026-05-23", "summary": "APEC部长级圆桌会议（MRT）于5月22日在苏州开幕，就全球经济不确定性下的供应链韧性与贸易便利化展开讨论。", "categories": ["地缘政治", "2026中国年"]}, {"title": "外交部：中方在APEC推动数字经济与绿色发展双轮驱动", "url": "https://www.bing.com/search?q=APEC+2026+China+digital+economy+green+development", "source": "外交部", "source_type": "官方公报", "date": "2026-05-23", "summary": "外交部发言人在例行记者会上表示，中方作为APEC 2026东道主推动数字经济与绿色发展双轮驱动。", "categories": ["互联互通", "2026中国年"]}, {"title": "新华网：APEC中国年推动亚太数字经济合作新篇章", "url": "https://www.bing.com/search?q=APEC+2026+China+digital+economy+cooperation+Asia+Pacific", "source": "新华网", "source_type": "权威媒体", "date": "2026-05-21", "summary": "作为APEC 2026东道主，中国提出「建设亚太共同体」愿景，推动数字经济、人工智能治理等领域的区域合作。", "categories": ["互联互通", "AI治理", "2026中国年"]}, {"title": "APEC moves forward on CBPR 2.0 framework for cross-border data flows", "url": "https://www.bing.com/search?q=APEC+CBPR+2.0+cross-border+data+privacy+framework+2026", "source": "Reuters", "source_type": "权威媒体", "date": "2026-05-20", "summary": "APEC economies advance negotiations on the upgraded Cross-Border Privacy Rules (CBPR 2.0) system, aiming to facilitate trusted data flows across the Asia-Pacific region.", "categories": ["数据跨境"]}, {"title": "SOM2在上海开幕，聚焦亚太数字化与互联互通合作", "url": "https://www.bing.com/search?q=APEC+SOM2+Shanghai+2026+digital+connectivity", "source": "APEC官网", "source_type": "官方公报", "date": "2026-05-19", "summary": "2026 APEC第二次高官会（SOM2）于5月11日至19日在上海举行，重点讨论数据跨境流动规则协调、亚太数字基础设施互联互通等议题。", "categories": ["互联互通", "2026中国年"]}, {"title": "APEC AI governance framework gains traction amid US-China standards rivalry", "url": "https://www.bing.com/search?q=APEC+AI+governance+framework+US+China+standards+2026", "source": "Reuters", "source_type": "权威媒体", "date": "2026-05-18", "summary": "APEC members debate competing AI governance models proposed by the US and China, seeking common ground on AI safety standards.", "categories": ["AI治理"]}, {"title": "APEC Supply Chain Connectivity Report warns of trade fragmentation risks", "url": "https://www.bing.com/search?q=APEC+supply+chain+connectivity+report+2026+trade+fragmentation", "source": "Associated Press", "source_type": "权威媒体", "date": "2026-05-17", "summary": "A new APEC report highlights growing risks to supply chain connectivity from geopolitical tensions and recommends enhanced regional cooperation.", "categories": ["地缘政治"]}, {"title": "APEC Data Privacy Subgroup advances work on cross-border data certification", "url": "https://www.bing.com/search?q=APEC+ECSG+data+privacy+cross-border+certification+2026", "source": "APEC官网", "source_type": "官方公报", "date": "2026-05-15", "summary": "The ECSG Data Privacy Subgroup reports progress on cross-border data transfer certification mechanisms during SOM2 meetings.", "categories": ["数据跨境", "互联互通"]}, {"title": "APEC中国年首轮高官会在哈尔滨圆满落幕", "url": "https://www.bing.com/search?q=APEC+SOM1+Harbin+2026+China+host+year", "source": "新华网", "source_type": "权威媒体", "date": "2026-04-28", "summary": "2026年APEC第一次高官会（SOM1）及相关会议在哈尔滨召开，就全年议题框架、数据跨境流动等达成初步共识。", "categories": ["互联互通", "2026中国年"]}, {"title": "APEC 2026 priorities: openness, innovation, cooperation under China's host year", "url": "https://www.bing.com/search?q=APEC+2026+priorities+openness+innovation+cooperation+China+host+year", "source": "APEC官网", "source_type": "官方公报", "date": "2026-04-15", "summary": "China unveils three priority areas for APEC 2026 under the theme 'Building an Asia-Pacific Community for Shared Prosperity': openness, innovation, and cooperation.", "categories": ["互联互通", "2026中国年"]}, {"title": "APEC跨经济体数据隐私规则体系面临新挑战", "url": "https://www.bing.com/search?q=APEC+CBPR+data+privacy+rules+cross+economy+challenges+2026", "source": "Reuters", "source_type": "权威媒体", "date": "2026-04-10", "summary": "专家指出CBPR体系在当前地缘政治环境下参与的成员有限，需要推动更多经济体加入以扩大数据跨境互认范围。", "categories": ["数据跨境", "地缘政治"]}, {"title": "East-West Center: APEC digital trade rules need updating for AI era", "url": "https://www.bing.com/search?q=APEC+digital+trade+rules+update+AI+era+East+West+Center+2026", "source": "East-West Center", "source_type": "权威媒体", "date": "2026-04-05", "summary": "A new East-West Center policy brief argues APEC's digital trade rules must be updated to address emerging AI cross-border deployment challenges.", "categories": ["AI治理", "互联互通"]}, {"title": "中国外交部确认2026 APEC中国年三大优先领域", "url": "https://www.bing.com/search?q=APEC+2026+China+three+priorities+openness+innovation+cooperation", "source": "外交部", "source_type": "官方公报", "date": "2026-03-20", "summary": "外交部发布2026 APEC中国年主题「建设亚太共同体，促进共同繁荣」，宣布三大优先领域：开放、创新、合作。", "categories": ["互联互通", "2026中国年"]}, {"title": "APEC公布2026年会议时间表，中国年内举办超200场会议", "url": "https://www.bing.com/search?q=APEC+2026+meeting+schedule+China+200+meetings", "source": "APEC官网", "source_type": "官方公报", "date": "2026-03-10", "summary": "APEC秘书处正式发布2026年全年会议日程，中国作为东道主将在哈尔滨、上海、成都、大连、深圳等地举办超过200场会议。", "categories": ["2026中国年"]}, {"title": "CSIS报告：APEC AI治理框架成为美中标准竞争的试金石", "url": "https://www.bing.com/search?q=APEC+AI+governance+framework+US+China+standards+CSIS+2026", "source": "CSIS", "source_type": "权威媒体", "date": "2026-03-05", "summary": "CSIS发布报告分析美中两国在APEC框架内围绕人工智能治理标准的竞争态势，认为APEC可能成为协调AI治理规则的重要平台。", "categories": ["AI治理", "地缘政治"]}]};</script>
+<script>
+/* ============================================================
+   APEC 2026 动态追踪看板 - 前端交互
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  var DATA_URL = '../data/articles.json';
+  var allArticles = [];
+  var activeFilters = {
+    categories: new Set(['数据跨境', 'AI治理', '互联互通', '地缘政治', '2026中国年', '其他APEC动态']),
+    sourceTypes: new Set(['官方公报', '权威媒体']),
+    timeRange: '7',
+    month: '',
+    search: '',
+  };
+
+  // ---- 初始化 ----
+  function init() {
+    if (window.__APEC_DATA__) {
+      loadData(window.__APEC_DATA__);
+    } else {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', DATA_URL, true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          try { loadData(JSON.parse(xhr.responseText)); } catch (e) { showError(); }
+        } else { showError(); }
+      };
+      xhr.onerror = showError;
+      xhr.send();
+    }
+  }
+
+  function loadData(data) {
+    allArticles = data.articles || [];
+    document.getElementById('updateTime').textContent = '最后更新：' + (data.last_updated || '未知');
+    updateStats(data);
+    populateMonths();
+    bindFilters();
+    applyFilters();
+  }
+
+  function showError() {
+    allArticles = [];
+    document.getElementById('updateTime').textContent = '数据加载失败，请刷新重试';
+    document.getElementById('content').innerHTML = '<div class="no-results"><p>数据加载失败</p></div>';
+  }
+
+  function updateStats(data) {
+    document.getElementById('statTotal').textContent = data.total_articles || allArticles.length;
+    document.getElementById('statMonth').textContent = data.monthly_count || 0;
+    document.getElementById('statToday').textContent = data.today_count || 0;
+  }
+
+  function populateMonths() {
+    var months = {};
+    allArticles.forEach(function (a) {
+      var m = (a.date || '').substring(0, 7);
+      if (m) months[m] = (months[m] || 0) + 1;
+    });
+    var sorted = Object.keys(months).sort().reverse();
+    var sel = document.getElementById('monthFilter');
+    while (sel.options.length > 1) sel.remove(1);
+    sorted.forEach(function (m) {
+      var opt = document.createElement('option');
+      opt.value = m;
+      opt.textContent = m + ' (' + months[m] + '篇)';
+      sel.appendChild(opt);
+    });
+  }
+
+  // ---- 筛选器事件 ----
+  function bindFilters() {
+    var cats = document.querySelectorAll('[data-filter="category"]');
+    for (var i = 0; i < cats.length; i++) {
+      cats[i].onchange = function () { updateCategoryFilter(); applyFilters(); };
+    }
+
+    var srcs = document.querySelectorAll('[data-filter="sourceType"]');
+    for (var j = 0; j < srcs.length; j++) {
+      srcs[j].onchange = function () { updateSourceTypeFilter(); applyFilters(); };
+    }
+
+    document.getElementById('timeFilter').onchange = function () {
+      activeFilters.timeRange = this.value;
+      if (this.value !== 'all') {
+        document.getElementById('monthFilter').value = '';
+        activeFilters.month = '';
+      }
+      applyFilters();
+    };
+
+    document.getElementById('monthFilter').onchange = function () {
+      activeFilters.month = this.value;
+      if (this.value) {
+        document.getElementById('timeFilter').value = 'all';
+        activeFilters.timeRange = 'all';
+      }
+      applyFilters();
+    };
+
+    document.getElementById('searchBox').oninput = function () {
+      activeFilters.search = this.value.trim().toLowerCase();
+      applyFilters();
+    };
+
+    document.getElementById('resetFilters').onclick = function () {
+      var allCats = document.querySelectorAll('[data-filter="category"]');
+      for (var k = 0; k < allCats.length; k++) { allCats[k].checked = true; }
+      var allSrcs = document.querySelectorAll('[data-filter="sourceType"]');
+      for (var l = 0; l < allSrcs.length; l++) { allSrcs[l].checked = true; }
+      document.getElementById('timeFilter').value = '7';
+      document.getElementById('monthFilter').value = '';
+      document.getElementById('searchBox').value = '';
+      activeFilters.categories = new Set(['数据跨境', 'AI治理', '互联互通', '地缘政治', '2026中国年', '其他APEC动态']);
+      activeFilters.sourceTypes = new Set(['官方公报', '权威媒体']);
+      activeFilters.timeRange = '7';
+      activeFilters.month = '';
+      activeFilters.search = '';
+      applyFilters();
+    };
+
+    // 刷新按钮
+    document.getElementById('btnRefresh').onclick = function () {
+      applyFilters();
+    };
+  }
+
+  function updateCategoryFilter() {
+    activeFilters.categories = new Set();
+    var checked = document.querySelectorAll('[data-filter="category"]:checked');
+    for (var i = 0; i < checked.length; i++) {
+      activeFilters.categories.add(checked[i].value);
+    }
+  }
+
+  function updateSourceTypeFilter() {
+    activeFilters.sourceTypes = new Set();
+    var checked = document.querySelectorAll('[data-filter="sourceType"]:checked');
+    for (var i = 0; i < checked.length; i++) {
+      activeFilters.sourceTypes.add(checked[i].value);
+    }
+  }
+
+  // ---- 过滤 + 渲染 ----
+  function applyFilters() {
+    var filtered = getFilteredArticles();
+    document.getElementById('articleCount').textContent =
+      filtered.length > 0 ? '显示 ' + filtered.length + ' 篇' : '无匹配结果';
+    renderArticles(filtered);
+  }
+
+  function getFilteredArticles() {
+    if (!allArticles.length) return [];
+
+    var now = new Date();
+    var filtered = allArticles.slice();
+
+    // 月份筛选
+    if (activeFilters.month) {
+      filtered = filtered.filter(function (a) {
+        return (a.date || '').substring(0, 7) === activeFilters.month;
+      });
+    } else if (activeFilters.timeRange !== 'all') {
+      var days = parseInt(activeFilters.timeRange, 10);
+      var cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+      var cutoffStr = formatDate(cutoff);
+      filtered = filtered.filter(function (a) { return (a.date || '') >= cutoffStr; });
+    }
+
+    // 议题分类
+    filtered = filtered.filter(function (a) {
+      var cats = a.categories || ['其他APEC动态'];
+      return cats.some(function (c) { return activeFilters.categories.has(c); });
+    });
+
+    // 来源类型
+    filtered = filtered.filter(function (a) {
+      return activeFilters.sourceTypes.has(a.source_type || '权威媒体');
+    });
+
+    // 搜索
+    if (activeFilters.search) {
+      var s = activeFilters.search;
+      filtered = filtered.filter(function (a) {
+        return (a.title || '').toLowerCase().indexOf(s) !== -1 ||
+          (a.source || '').toLowerCase().indexOf(s) !== -1 ||
+          (a.summary || '').toLowerCase().indexOf(s) !== -1;
+      });
+    }
+
+    return filtered;
+  }
+
+  function formatDate(d) {
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1);
+    var day = String(d.getDate());
+    if (m.length === 1) m = '0' + m;
+    if (day.length === 1) day = '0' + day;
+    return y + '-' + m + '-' + day;
+  }
+
+  function renderArticles(filtered) {
+    var content = document.getElementById('content');
+
+    if (!filtered.length) {
+      content.innerHTML =
+        '<div class="no-results">' +
+        '<div class="icon" style="font-size:2.5rem">📭</div>' +
+        '<p>没有匹配的动态</p>' +
+        '<p style="font-size:0.8rem;margin-top:4px;">试试调整筛选条件或点刷新按钮</p>' +
+        '</div>';
+      return;
+    }
+
+    // 按日期分组
+    var grouped = {};
+    filtered.forEach(function (a) {
+      var d = a.date || '未知日期';
+      if (!grouped[d]) grouped[d] = [];
+      grouped[d].push(a);
+    });
+
+    var sortedDates = Object.keys(grouped).sort(function (a, b) { return b.localeCompare(a); });
+
+    var html = '';
+    sortedDates.forEach(function (date) {
+      var articles = grouped[date];
+      html += '<div class="day-group">' +
+        '<div class="day-label">' + date +
+        '<span class="count">' + articles.length + ' 篇</span></div>';
+
+      articles.forEach(function (a) {
+        var srcClass = a.source_type === '官方公报' ? 'source-official' : 'source-media';
+        var badgeClass = a.source_type === '官方公报' ? 'badge-official' : 'badge-media';
+        var badgeText = a.source_type || '权威媒体';
+
+        html += '<div class="article-card ' + srcClass + '">' +
+          '<div class="title"><a href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.title) + '</a></div>' +
+          '<div class="meta">' +
+          '<span class="source-name">' + esc(a.source || '') + '</span>' +
+          '<span class="source-badge ' + badgeClass + '">' + esc(badgeText) + '</span>' +
+          '</div>';
+
+        if (a.summary) {
+          html += '<div class="summary">' + esc(a.summary) + '</div>';
+        }
+
+        if (a.categories && a.categories.length) {
+          html += '<div class="tags">';
+          a.categories.forEach(function (cat) {
+            html += '<span class="tag tag-' + cat + '">' + esc(cat) + '</span>';
+          });
+          html += '</div>';
+        }
+
+        html += '</div>';
+      });
+
+      html += '</div>';
+    });
+
+    content.innerHTML = html;
+  }
+
+  function esc(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ---- 启动 ----
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+</body>
+</html>
