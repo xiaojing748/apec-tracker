@@ -29,11 +29,13 @@ jobs:
 
       - name: Commit and push
         run: |
-          mkdir -p web/data
+          mkdir -p web/data docs/data
           cp data/articles.json web/data/articles.json
+          cp data/articles.json docs/data/articles.json
+          cp index.html docs/index.html
           git config user.name "APEC Bot"
           git config user.email "bot@apec-tracker.local"
-          git add data/articles.json web/data/articles.json index.html "APEC动态看板.html"
+          git add data/articles.json web/data/articles.json docs/ index.html "APEC动态看板.html"
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
