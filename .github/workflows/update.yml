@@ -24,13 +24,16 @@ jobs:
       - name: Run scraper
         run: python scraper/main.py
 
+      - name: Build HTML
+        run: python build_html.py
+
       - name: Commit and push
         run: |
           mkdir -p web/data
           cp data/articles.json web/data/articles.json
           git config user.name "APEC Bot"
           git config user.email "bot@apec-tracker.local"
-          git add data/articles.json web/data/articles.json
+          git add data/articles.json web/data/articles.json index.html "APEC动态看板.html"
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
