@@ -95,13 +95,23 @@ KEYWORDS = {
         "APEC 互联互通蓝图",
         "APEC 互联互通",
         "APEC digital connectivity",
-        # 数字经济
+        "APEC infrastructure connectivity",
+        "APEC 基础设施互联互通",
+    ],
+    "数字经济": [
+        # 数字经济核心
         "APEC digital economy",
         "APEC digital economy roadmap",
         "APEC AIDER",
         "APEC 数字经济",
         "APEC digital infrastructure",
         "APEC internet economy",
+        "APEC digital transformation",
+        "APEC 数字化转型",
+        "APEC digital inclusion",
+        "APEC 数字包容",
+        "APEC 数字鸿沟",
+        "APEC digital divide",
         # 贸易数字化
         "APEC digital trade",
         "APEC paperless trade",
@@ -109,9 +119,14 @@ KEYWORDS = {
         "APEC 跨境电商",
         "APEC 电子口岸",
         "APEC 电子提单",
-        # AI+
+        "APEC digital services",
+        "APEC 数字服务",
+        # 创新
         "APEC AI plus",
         "APEC digital innovation",
+        "APEC 数字创新",
+        "APEC fintech",
+        "APEC 金融科技",
     ],
     "网络犯罪": [
         "APEC cybercrime",

@@ -8,7 +8,7 @@
   var DATA_URL = '../data/articles.json';
   var allArticles = [];
   var activeFilters = {
-    categories: new Set(['数据跨境与隐私保护', 'AI治理', '互联互通', '地缘政治', '供应链安全', '网络犯罪', '2026中国年', '其他APEC动态']),
+    categories: new Set(['数据跨境与隐私保护', 'AI治理', '互联互通', '数字经济', '地缘政治', '供应链安全', '网络犯罪', '2026中国年', '其他APEC动态']),
     sourceTypes: new Set(['官方公报', '权威媒体']),
     timeRange: '7',
     month: '',
@@ -113,7 +113,7 @@
       document.getElementById('timeFilter').value = '7';
       document.getElementById('monthFilter').value = '';
       document.getElementById('searchBox').value = '';
-      activeFilters.categories = new Set(['数据跨境与隐私保护', 'AI治理', '互联互通', '地缘政治', '供应链安全', '网络犯罪', '2026中国年', '其他APEC动态']);
+      activeFilters.categories = new Set(['数据跨境与隐私保护', 'AI治理', '互联互通', '数字经济', '地缘政治', '供应链安全', '网络犯罪', '2026中国年', '其他APEC动态']);
       activeFilters.sourceTypes = new Set(['官方公报', '权威媒体']);
       activeFilters.timeRange = '7';
       activeFilters.month = '';
