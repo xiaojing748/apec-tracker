@@ -24,13 +24,11 @@ jobs:
       - name: Run scraper
         run: python scraper/main.py
 
-      - name: Build HTML
-        run: python build_html.py
-
       - name: Build static pages
         run: python build_html.py
 
       - name: Commit and push
+        id: commit
         run: |
           mkdir -p web/data docs/data docs/archive
           cp data/articles.json web/data/articles.json
@@ -39,13 +37,38 @@ jobs:
           cp archive.html docs/archive.html
           cp -r archive docs/ 2>/dev/null || true
           TOTAL=$(python -c "import json;d=json.load(open('data/articles.json'));print(d['total_articles'])")
+          TODAY=$(python -c "import json;d=json.load(open('data/articles.json'));print(d.get('today_count',0))")
           ARCHIVE=$(python -c "import json;d=json.load(open('archive/index.json'));print(d.get('total',0))" 2>/dev/null || echo "0")
+          echo "total=${TOTAL}" >> $GITHUB_OUTPUT
+          echo "today=${TODAY}" >> $GITHUB_OUTPUT
           git config user.name "APEC Bot"
           git config user.email "bot@apec-tracker.local"
           git add data/articles.json web/data/articles.json docs/ index.html "APEC动态看板.html" archive.html archive/
           if git diff --staged --quiet; then
             echo "No changes to commit"
+            echo "changed=false" >> $GITHUB_OUTPUT
           else
             git commit -m "Update: $(date +'%Y-%m-%d') [${TOTAL} articles / ${ARCHIVE} archived]"
             git push
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
+
+      - name: Send WeChat notification
+        if: always()
+        run: |
+          TOTAL="${{ steps.commit.outputs.total }}"
+          TODAY="${{ steps.commit.outputs.today }}"
+          CHANGED="${{ steps.commit.outputs.changed }}"
+          DATE_STR=$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M')
+
+          if [ "${CHANGED}" = "true" ]; then
+            TITLE="APEC追踪更新 · ${DATE_STR}"
+            CONTENT="今日新增 ${TODAY} 篇，总计 ${TOTAL} 篇<br>看板: https://xiaojing748.github.io/apec-tracker/<br>资料库: https://xiaojing748.github.io/apec-tracker/archive.html"
+          else
+            TITLE="APEC追踪 · ${DATE_STR} · 无更新"
+            CONTENT="今日无新增内容，总计 ${TOTAL} 篇<br>看板: https://xiaojing748.github.io/apec-tracker/"
+          fi
+
+          curl -s -X POST http://www.pushplus.plus/send \
+            -H "Content-Type: application/json" \
+            -d "{\"token\":\"65aabbcebe364f8598abae71f865f336\",\"title\":\"${TITLE}\",\"content\":\"${CONTENT}\"}"
