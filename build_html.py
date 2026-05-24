@@ -1,9 +1,11 @@
 """生成本地可用的自包含HTML看板 + 存档页"""
 import json
 import os
+import shutil
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(PROJECT_DIR, "data", "articles.json")
+ARCHIVE_INDEX = os.path.join(PROJECT_DIR, "archive", "index.json")
 
 
 def build_main():
@@ -44,14 +46,42 @@ def build_main():
 
 
 def build_archive():
-    """生成存档页（保持引用 archive/index.json 即可，无需自包含）"""
+    """生成自包含存档页——嵌入索引数据"""
     src = os.path.join(PROJECT_DIR, "archive.html")
-    # 存档页直接使用，无需内联——index.json 动态加载
-    if os.path.exists(src):
-        import shutil
-        dst = os.path.join(PROJECT_DIR, "docs", "archive.html")
-        shutil.copy2(src, dst)
-        print("Generated: docs/archive.html")
+
+    if not os.path.exists(src):
+        print("archive.html not found, skipping")
+        return
+
+    with open(src, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    # 嵌入存档索引数据
+    if os.path.exists(ARCHIVE_INDEX):
+        with open(ARCHIVE_INDEX, "r", encoding="utf-8") as f:
+            idx_data = json.load(f)
+        idx_json = json.dumps(idx_data, ensure_ascii=False)
+        idx_inject = "<script>window.__ARCHIVE_DATA__ = " + idx_json + ";</script>"
+    else:
+        idx_inject = "<script>window.__ARCHIVE_DATA__ = {entries:[],total:0,updated:''};</script>"
+
+    html = html.replace(
+        '<script>',
+        idx_inject + "\n<script>"
+    )
+
+    outputs = [
+        os.path.join(PROJECT_DIR, "archive_self.html"),
+        os.path.join(PROJECT_DIR, "docs", "archive.html"),
+    ]
+    for path in outputs:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(html)
+        print("Generated: " + os.path.basename(os.path.dirname(path)) + "/" + os.path.basename(path))
+
+    # 同时复制原始archive.html到根目录（用于非自包含模式）
+    shutil.copy2(src, os.path.join(PROJECT_DIR, "archive_root.html"))
 
 
 def main():

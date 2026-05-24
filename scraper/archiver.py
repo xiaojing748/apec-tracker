@@ -19,9 +19,11 @@ def _init_paths():
     global ARCHIVE_DIR, INDEX_FILE
     scraper_dir = os.path.dirname(os.path.abspath(__file__))
     project_dir = os.path.dirname(scraper_dir)
-    ARCHIVE_DIR = os.path.join(project_dir, "archive", "docs")
-    INDEX_FILE = os.path.join(project_dir, "archive", "index.json")
+    # 存档放在 docs/archive/ 下，兼容 GitHub Pages 从 docs/ 或根目录部署
+    ARCHIVE_DIR = os.path.join(project_dir, "docs", "archive", "docs")
+    INDEX_FILE = os.path.join(project_dir, "docs", "archive", "index.json")
     os.makedirs(ARCHIVE_DIR, exist_ok=True)
+    os.makedirs(os.path.dirname(INDEX_FILE), exist_ok=True)
 
 
 def archive_all(articles, force=False):
@@ -109,14 +111,18 @@ url: "{url}"
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(md_content)
 
-    # 返回索引条目
+    # 返回索引条目，file路径相对于项目根目录
+    scraper_dir = os.path.dirname(os.path.abspath(__file__))
+    scraper_dir = os.path.dirname(scraper_dir)  # scraper/ 的父目录 = 项目根
+    rel_path = os.path.relpath(filepath, scraper_dir).replace("\\", "/")
+
     return {
         "title": title,
         "date": date_str,
         "source": source,
         "categories": categories,
         "url": url,
-        "file": os.path.relpath(filepath, os.path.dirname(ARCHIVE_DIR)).replace("\\", "/"),
+        "file": rel_path,
         "has_fulltext": full_text and "无法获取全文" not in full_text,
     }
 
