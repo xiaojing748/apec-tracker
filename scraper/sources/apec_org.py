@@ -63,10 +63,16 @@ def _fetch_rss():
             if not title or not link:
                 continue
 
-            if pub_date and pub_date < cutoff:
+            # 如果没有解析到日期，尝试从标题或URL中提取年份
+            if not pub_date:
+                pub_date = _extract_date_from_text(title + " " + link, cutoff)
+            if not pub_date:
+                continue  # 无法确定日期的跳过，不用今天代替
+
+            if pub_date < cutoff:
                 continue
 
-            date_str = pub_date.strftime("%Y-%m-%d") if pub_date else datetime.now().strftime("%Y-%m-%d")
+            date_str = pub_date.strftime("%Y-%m-%d")
             categories = config.classify_article(title, summary)
 
             articles.append({
@@ -122,11 +128,17 @@ def _fetch_news_page():
                 link = ""
                 if link_el:
                     link = urljoin(url, link_el.get("href", ""))
-                pub_date = _parse_date(date_el.get_text(strip=True)) if date_el else datetime.now()
+                pub_date = None
+                if date_el:
+                    pub_date = _parse_date(date_el.get_text(strip=True))
+                if not pub_date:
+                    pub_date = _extract_date_from_text(title + " " + link, cutoff)
 
                 if not title or not link:
                     continue
-                if pub_date and pub_date.replace(tzinfo=timezone.utc) < cutoff:
+                if not pub_date:
+                    continue
+                if pub_date.replace(tzinfo=timezone.utc) < cutoff:
                     continue
 
                 categories = config.classify_article(title)
@@ -135,7 +147,7 @@ def _fetch_news_page():
                     "url": link,
                     "source": "APEC官网",
                     "source_type": "官方公报",
-                    "date": pub_date.strftime("%Y-%m-%d") if pub_date else datetime.now().strftime("%Y-%m-%d"),
+                    "date": pub_date.strftime("%Y-%m-%d"),
                     "summary": "",
                     "categories": categories,
                 })
@@ -143,6 +155,21 @@ def _fetch_news_page():
             continue
 
     return articles
+
+
+def _extract_date_from_text(text, cutoff):
+    """从文本中提取年份，生成一个保守的日期（该年1月1日）。
+    如果年份不在cutoff范围内，返回None。"""
+    import re as _re
+    years = _re.findall(r"\b(20\d{2})\b", text)
+    for y_str in sorted(years, reverse=True):
+        y = int(y_str)
+        if y < 2020 or y > 2026:
+            continue
+        candidate = datetime(y, 1, 1, tzinfo=timezone.utc)
+        if candidate >= cutoff:
+            return candidate
+    return None
 
 
 def _clean_html(html_text):

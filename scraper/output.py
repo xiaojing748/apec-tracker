@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 from datetime import datetime
 
 
@@ -43,9 +44,33 @@ def merge_articles(existing, new_articles):
     return result
 
 
+def clean_old_year_articles(articles):
+    """移除标题年份早于发布日期的旧文章（如"2024 Report"被误标为今天）"""
+    current_year = datetime.now().year
+    cleaned = []
+    removed = 0
+    for a in articles:
+        title = a.get("title", "")
+        date = a.get("date", "")
+        years_in_title = [int(y) for y in re.findall(r"\b(20\d{2})\b", title)]
+        if years_in_title:
+            max_year = max(years_in_title)
+            date_year = int(date[:4]) if date else current_year
+            if max_year < date_year:
+                removed += 1
+                continue
+        cleaned.append(a)
+    if removed:
+        print(f"  清理 {removed} 篇旧年份文章（标题年份与发布日期不符）")
+    return cleaned
+
+
 def write_json(articles):
     """写入合并后的全部文章"""
     path = get_data_path()
+
+    # 清理旧年份文章
+    articles = clean_old_year_articles(articles)
 
     # 统计本月/本周
     today = datetime.now().strftime("%Y-%m-%d")

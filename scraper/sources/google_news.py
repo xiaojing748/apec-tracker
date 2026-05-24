@@ -62,13 +62,19 @@ def _search_rss(query):
             if not _is_allowed_domain(link):
                 continue
 
+            # 无法确定日期的不收录，不要用今天代替
+            if not pub_date:
+                pub_date = _extract_year_date(title + " " + (summary or ""))
+            if not pub_date:
+                continue
+
             categories = config.classify_article(title, summary or "")
             articles.append({
                 "title": title,
                 "url": link,
                 "source": source_name.strip(),
                 "source_type": "权威媒体",
-                "date": pub_date.strftime("%Y-%m-%d") if pub_date else datetime.now().strftime("%Y-%m-%d"),
+                "date": pub_date.strftime("%Y-%m-%d"),
                 "summary": _clean_summary(summary)[:300] if summary else "",
                 "categories": categories,
             })
@@ -111,6 +117,17 @@ def _clean_summary(text):
     clean = re.sub(r"<[^>]+>", " ", text)
     clean = re.sub(r"\s+", " ", clean)
     return clean.strip()
+
+
+def _extract_year_date(text):
+    """从文本提取年份，生成保守日期。只接受2025-2026年的。"""
+    years = re.findall(r"\b(20\d{2})\b", text)
+    for y_str in sorted(years, reverse=True):
+        y = int(y_str)
+        if y < 2025 or y > 2026:
+            continue
+        return datetime(y, 1, 1, tzinfo=timezone.utc)
+    return None
 
 
 def _collect_all_keywords():
