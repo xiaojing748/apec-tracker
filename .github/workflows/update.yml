@@ -71,4 +71,4 @@ jobs:
 
           curl -s -X POST http://www.pushplus.plus/send \
             -H "Content-Type: application/json" \
-            -d "{\"token\":\"65aabbcebe364f8598abae71f865f336\",\"title\":\"${TITLE}\",\"content\":\"${CONTENT}\"}"
+            -d "{\"token\":\"${{ secrets.PUSHPLUS_TOKEN }}\",\"title\":\"${TITLE}\",\"content\":\"${CONTENT}\"}"
