@@ -105,13 +105,20 @@ def _fetch_news_page():
             soup = BeautifulSoup(resp.text, "lxml")
 
             for item in soup.select("article, .news-item, .publication-item, .card, .list-item"):
-                title_el = item.select_one("h2, h3, h4, .title, a")
-                if not title_el:
-                    continue
                 link_el = item.select_one("a[href]")
                 date_el = item.select_one("time, .date, .published")
 
+                title_el = item.select_one("h2 a, h3 a, h4 a, .title a")
+                if not title_el:
+                    title_el = item.select_one("h2, h3, h4, .title")
+                if not title_el:
+                    continue
+
                 title = title_el.get_text(strip=True)
+                # 去掉常见前缀（分类标签被拼接到标题的情况）
+                for prefix in ["Reports", "Press Release", "News", "Statement"]:
+                    if title.startswith(prefix) and len(title) > len(prefix) + 1:
+                        title = title[len(prefix):].strip()
                 link = ""
                 if link_el:
                     link = urljoin(url, link_el.get("href", ""))

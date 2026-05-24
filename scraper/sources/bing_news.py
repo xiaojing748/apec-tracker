@@ -76,10 +76,18 @@ def _collect_all_keywords():
     return all_kw
 
 
+_SEARCH_DOMAINS = {
+    "bing.com", "www.bing.com", "google.com", "www.google.com",
+    "search.yahoo.com", "baidu.com", "www.baidu.com",
+}
+
+
 def _is_allowed_domain(url):
-    """检查URL域名是否在白名单"""
+    """检查URL域名是否在白名单（拒绝搜索引擎域名）"""
     from urllib.parse import urlparse
     domain = urlparse(url).netloc.lower().replace("www.", "")
+    if domain in _SEARCH_DOMAINS or "/search" in url.lower():
+        return False
     return domain in config.ALLOWED_DOMAINS or any(
         domain.endswith(d) for d in config.ALLOWED_DOMAINS
     )

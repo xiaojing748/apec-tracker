@@ -48,14 +48,19 @@ def filter_by_keywords(articles):
         "data privacy", "data protection", "data flow", "跨境数据", "数据跨境",
         "ai governance", "ai safety", "artificial intelligence", "ai standard",
         "ai adoption", "人工智能", "AI治理",
+        "telwg", "telecommunications", "telecom", "desg", "ecsg",
+        "data privacy subgroup", "telmin", "ciip", "critical information",
+        "电信工作组", "电信安全", "通信安全", "数字经济转向组",
         "digital economy", "digital trade", "digital transformation",
         "e-commerce", "fintech", "paperless trade", "数字经济", "数字贸易", "跨境电商",
         "connectivity", "infrastructure", "互联互通",
         "supply chain", "供应链", "ict supply",
-        "cybersecurity", "cyber security", "cybercrime", "critical infrastructure",
-        "网络安全", "网络犯罪", "关键信息基础设施",
+        "cybersecurity", "cyber security", "cybercrime",
+        "网络安全", "网络犯罪",
         "trade war", "tariff", "protectionism", "ftaap",
-        "trade facilitation", "multilateral", "关税", "贸易便利化", "多边",
+        "trade facilitation", "multilateral", "trade minister",
+        "economic outlook", "regional trends",
+        "关税", "贸易便利化", "多边", "贸易部长", "经济合作",
         "APEC",  # 兜底：标题含APEC的都留下
     ]
 
@@ -70,8 +75,9 @@ def filter_by_keywords(articles):
 
 
 def apply(articles):
-    """应用全部过滤：去重 → 域名过滤 → 关键词过滤"""
-    unique = deduplicate(articles)
+    """应用全部过滤：搜索URL拒绝 → 去重 → 域名过滤 → 关键词过滤"""
+    url_valid = [a for a in articles if _is_valid_url(a.get("url", ""))]
+    unique = deduplicate(url_valid)
     domain_filtered = filter_by_domain(unique)
     keyword_filtered = filter_by_keywords(domain_filtered)
     return keyword_filtered
@@ -83,3 +89,19 @@ def _extract_domain(url):
         return urlparse(url).netloc.lower().replace("www.", "")
     except Exception:
         return ""
+
+
+_SEARCH_DOMAINS = {"bing.com", "google.com", "search.yahoo.com", "baidu.com"}
+
+
+def _is_valid_url(url):
+    """拒绝搜索引擎和其他无效URL"""
+    if not url:
+        return False
+    lower = url.lower()
+    if "/search" in lower:
+        return False
+    domain = _extract_domain(url)
+    if domain in _SEARCH_DOMAINS:
+        return False
+    return True

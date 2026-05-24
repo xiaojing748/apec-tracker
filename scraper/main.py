@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from scraper.sources import apec_org, bing_news, google_news
 from scraper.filters import apply as apply_filters
 from scraper.output import load_existing, merge_articles, write_json
+from scraper.archiver import archive_all
 
 
 def main():
@@ -66,6 +67,14 @@ def main():
     # 写入JSON
     output_path = write_json(all_filtered)
     print(f"  已写入: {output_path}")
+
+    # 归档文章全文
+    print("\n  归档文章全文...")
+    try:
+        archive_all(all_filtered)
+    except Exception as e:
+        print(f"  归档出错（非致命）: {e}")
+
     print(f"[{datetime.now()}] 采集完成！")
 
 

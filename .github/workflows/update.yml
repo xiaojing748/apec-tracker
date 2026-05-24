@@ -27,19 +27,25 @@ jobs:
       - name: Build HTML
         run: python build_html.py
 
+      - name: Build static pages
+        run: python build_html.py
+
       - name: Commit and push
         run: |
-          mkdir -p web/data docs/data
+          mkdir -p web/data docs/data docs/archive
           cp data/articles.json web/data/articles.json
           cp data/articles.json docs/data/articles.json
           cp index.html docs/index.html
+          cp archive.html docs/archive.html
+          cp -r archive docs/ 2>/dev/null || true
           TOTAL=$(python -c "import json;d=json.load(open('data/articles.json'));print(d['total_articles'])")
+          ARCHIVE=$(python -c "import json;d=json.load(open('archive/index.json'));print(d.get('total',0))" 2>/dev/null || echo "0")
           git config user.name "APEC Bot"
           git config user.email "bot@apec-tracker.local"
-          git add data/articles.json web/data/articles.json docs/ index.html "APEC动态看板.html"
+          git add data/articles.json web/data/articles.json docs/ index.html "APEC动态看板.html" archive.html archive/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update: $(date +'%Y-%m-%d') [${TOTAL} articles]"
+            git commit -m "Update: $(date +'%Y-%m-%d') [${TOTAL} articles / ${ARCHIVE} archived]"
             git push
           fi

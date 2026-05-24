@@ -221,6 +221,7 @@ body {
 .tag-数据跨境 { background: var(--color-tag-cbpr); }
 .tag-数据跨境与隐私保护 { background: var(--color-tag-cbpr); }
 .tag-AI治理 { background: var(--color-tag-ai); }
+.tag-电信与网络治理 { background: #2c3e50; }
 .tag-互联互通 { background: var(--color-tag-connect); }
 .tag-数字经济 { background: #1abc9c; }
 .tag-地缘政治 { background: var(--color-tag-geo); }
