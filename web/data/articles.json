@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-25 04:01:06",
+  "last_updated": "2026-05-26 03:43:14",
   "timezone": "Asia/Shanghai",
   "total_articles": 31,
   "today_count": 0,
@@ -14,7 +14,21 @@
       "summary": "APEC Ministers Responsible for Trade Meeting",
       "categories": [
         "地缘政治"
-      ]
+      ],
+      "doc_type": [
+        "official_statement",
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "MRT"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 70,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Ministers Chart Course for Open Trade Amid Rising Protectionism",
@@ -25,7 +39,21 @@
       "summary": "Ministers Responsible for Trade Meeting",
       "categories": [
         "地缘政治"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "MRT",
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 55,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC at a Crossroads: Resilience Under Pressure",
@@ -36,7 +64,18 @@
       "summary": "Rhea Crisologo Hernando, Eldo Simanjuntak and Carlos Kuriyama",
       "categories": [
         "供应链安全"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 55,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Sees Moderating Growth Amid Rising Energy Costs and Supply Chain Pressures",
@@ -47,7 +86,18 @@
       "summary": "APEC Policy Support Unit",
       "categories": [
         "供应链安全"
-      ]
+      ],
+      "doc_type": [
+        "policy_document"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 55,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Senior Officials Advance Trade, Connectivity, Innovation and Development Agenda",
@@ -58,7 +108,21 @@
       "summary": "APEC Senior Officials’ Meeting",
       "categories": [
         "互联互通"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "SOM",
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 55,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Chair’s Statement on the APEC Women and the Economy Forum",
@@ -69,7 +133,18 @@
       "summary": "High-Level Dialogue on Women and the Economy",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 60,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Advances Trade Agenda Ahead of Ministers’ Meeting in Suzhou",
@@ -80,7 +155,20 @@
       "summary": "Committee on Trade and Investment",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Preparing for What’s Next: A Tiered Approach to Growth in APEC",
@@ -91,7 +179,18 @@
       "summary": "Rhea Crisologo Hernando",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Economies Push to Break Barriers, Expand Opportunities for Women",
@@ -102,7 +201,18 @@
       "summary": "High-Level Policy Dialogue on Women and the Economy",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "policy_document"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APMEN: Public-Private Dialogue on Advancing Trade Facilitation & Supply Chain Connectivity through Eport",
@@ -115,7 +225,20 @@
         "互联互通",
         "供应链安全",
         "地缘政治"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "CTI: FTAAP Dialogue",
@@ -126,7 +249,22 @@
       "summary": "",
       "categories": [
         "地缘政治"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [
+        "FTAAP"
+      ],
+      "relevance": 15,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Women at the Centre of APEC's Digital and Green Ambitions",
@@ -137,7 +275,18 @@
       "summary": "APEC Policy Partnership on Women and the Economy",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "policy_document"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Strengthens Regional Cooperation to Maintain Food Safety and Keep Trade Flowing",
@@ -148,7 +297,18 @@
       "summary": "APEC Sub-Committee on Standards and Conformance",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "regulation"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "TELWG: CISG Meeting",
@@ -160,7 +320,20 @@
       "categories": [
         "电信与网络治理",
         "2026中国年"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "TELWG"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 30,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Economies Deepen ICT Cooperation as Artificial Intelligence Adoption Accelerates",
@@ -171,7 +344,18 @@
       "summary": "Telecommunications and Information Working Group",
       "categories": [
         "AI治理"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 15,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "TELWG: Roundtable on AI Integration and Application",
@@ -183,7 +367,20 @@
       "categories": [
         "电信与网络治理",
         "2026中国年"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [
+        "TELWG"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 30,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "TELWG: DPSG Meeting",
@@ -195,7 +392,21 @@
       "categories": [
         "电信与网络治理",
         "2026中国年"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "TELWG",
+        "DPS"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 30,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Strengthens Regional Cooperation in Shanghai Amid Growing Trade Uncertainty",
@@ -207,7 +418,18 @@
       "categories": [
         "电信与网络治理",
         "2026中国年"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "china"
+      ],
+      "policy_tags": [],
+      "relevance": 70,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "AD: APEC Workshop on AI-Empowered Automotive Industry Ecosystem Cooperation",
@@ -218,7 +440,18 @@
       "summary": "",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "AD: Workshop on Automotive Industry Digital Transformation Paths, Tools and Best Practice",
@@ -229,7 +462,20 @@
       "summary": "",
       "categories": [
         "数字经济"
-      ]
+      ],
+      "doc_type": [
+        "regulation"
+      ],
+      "apec_bodies": [
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 15,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "TELWG: HoD & Executive Committee Meeting, Plenary",
@@ -241,7 +487,20 @@
       "categories": [
         "电信与网络治理",
         "2026中国年"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "TELWG"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 30,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Media Registration Opens for Ministers Responsible for Trade Meeting in Suzhou",
@@ -252,7 +511,21 @@
       "summary": "Media registration has opened for the 2026 APEC Ministers Responsible for Trade Meeting, as preparations advance for a key ministerial platform to address evolving global trade challenges.",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes",
+        "speech"
+      ],
+      "apec_bodies": [
+        "MRT"
+      ],
+      "geo_focus": [
+        "global"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Applications Open for the 2026 APEC Healthy Women Research Prize",
@@ -263,7 +536,19 @@
       "summary": "The annual prize encourages the generation of robust women’s health data and research to inform policy and business decisions across APEC member economies.",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "policy_document",
+        "academic"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Economies Recast Investment Policy for a Changing Global Landscape",
@@ -274,7 +559,18 @@
       "summary": "From supply chain resilience to digital investment and sustainability, economies across the Asia-Pacific are using investment policy to recalibrate growth strategies in a more fragmented global economy.",
       "categories": [
         "供应链安全"
-      ]
+      ],
+      "doc_type": [
+        "policy_document"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "global"
+      ],
+      "policy_tags": [],
+      "relevance": 15,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Regional Finance Cooperation Advances Household Support, Digital Investment",
@@ -285,7 +581,18 @@
       "summary": "Deputies endorsed the 2026 work plan for APEC Finance Ministers Process. Outcomes from the meeting will inform discussions ahead of the APEC Finance Ministers’ Meeting, which China plans to host in October in Hong Kong, China.",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "china"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Gains Momentum Amid Rising Risks: Can It Last?",
@@ -297,7 +604,19 @@
       "categories": [
         "电信与网络治理",
         "地缘政治"
-      ]
+      ],
+      "doc_type": [
+        "policy_document",
+        "report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 70,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Lifts Growth Outlook as Trade Holds, AI Investment Surges",
@@ -308,7 +627,18 @@
       "summary": "Economic growth in the Asia-Pacific region is projected at 3.2 percent in 2025, with growth expected to hold at 3.1 percent in 2026.",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "ABAC Launches 2026 Work Program Under Theme “Openness, Connectivity, Synergy”",
@@ -320,7 +650,21 @@
       "categories": [
         "互联互通",
         "2026中国年"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [
+        "ABAC",
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 30,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "Administrator Liu: Innovation-Led Cooperation Crucial to Reinforce Food Security",
@@ -331,7 +675,18 @@
       "summary": "Closing the gap between policy commitments and real-world food system resilience is emerging as a priority for APEC economies",
       "categories": [
         "供应链安全"
-      ]
+      ],
+      "doc_type": [
+        "policy_document"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 55,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Health Officials Chart 2026 Health Priorities",
@@ -342,7 +697,18 @@
       "summary": "Health officials sharpened their focus on health systems as an economic variable.",
       "categories": [
         "其他APEC动态"
-      ]
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "usa"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
     },
     {
       "title": "APEC Regional Trends Analysis, May 2026",
@@ -353,7 +719,18 @@
       "summary": "",
       "categories": [
         "地缘政治"
-      ]
+      ],
+      "doc_type": [
+        "report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 55,
+      "notes": "",
+      "starred": false
     }
   ]
 }
