@@ -1,4 +1,4 @@
-"""输出模块 - 增量合并采集结果到 data/articles.json"""
+﻿"""Output module - merge results into data/articles.json"""
 
 import json
 import os
@@ -15,7 +15,6 @@ def get_data_path():
 
 
 def load_existing():
-    """读取已有的文章数据"""
     path = get_data_path()
     if os.path.exists(path):
         try:
@@ -28,8 +27,7 @@ def load_existing():
 
 
 def merge_articles(existing, new_articles):
-    """合并新旧文章，按URL去重，新数据覆盖旧数据"""
-    # 用 dict 按 url 去重，新数据优先（保留最新采集的字段值）
+    """Merge new articles with existing, dedupe by URL, preserve manual metadata"""
     merged = {}
     for a in existing:
         url = a.get("url", "").strip().lower().rstrip("/")
@@ -38,14 +36,18 @@ def merge_articles(existing, new_articles):
     for a in new_articles:
         url = a.get("url", "").strip().lower().rstrip("/")
         if url:
-            merged[url] = a  # 新数据覆盖旧数据
+            if url in merged:
+                # preserve manual edits (notes, starred) from existing
+                old = merged[url]
+                a.setdefault("notes", old.get("notes", ""))
+                a.setdefault("starred", old.get("starred", False))
+            merged[url] = a
     result = list(merged.values())
     result.sort(key=lambda x: x.get("date", ""), reverse=True)
     return result
 
 
 def clean_old_year_articles(articles):
-    """移除标题年份早于发布日期的旧文章（如"2024 Report"被误标为今天）"""
     current_year = datetime.now().year
     cleaned = []
     removed = 0
@@ -61,18 +63,14 @@ def clean_old_year_articles(articles):
                 continue
         cleaned.append(a)
     if removed:
-        print(f"  清理 {removed} 篇旧年份文章（标题年份与发布日期不符）")
+        print(f"  Cleaned {removed} old-year articles (title year mismatch)")
     return cleaned
 
 
 def write_json(articles):
-    """写入合并后的全部文章"""
     path = get_data_path()
-
-    # 清理旧年份文章
     articles = clean_old_year_articles(articles)
 
-    # 统计本月/本周
     today = datetime.now().strftime("%Y-%m-%d")
     this_month = datetime.now().strftime("%Y-%m")
 

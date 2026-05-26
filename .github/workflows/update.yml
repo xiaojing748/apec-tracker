@@ -1,8 +1,8 @@
-name: Update APEC News
+﻿name: Update APEC News
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 permissions:
@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install dependencies
         run: pip install -r scraper/requirements.txt
@@ -53,7 +53,7 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Send WeChat notification
+      - name: Send Daily Digest via Pushplus
         if: always()
         run: |
           TOTAL="${{ steps.commit.outputs.total }}"
@@ -61,12 +61,32 @@ jobs:
           CHANGED="${{ steps.commit.outputs.changed }}"
           DATE_STR=$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M')
 
+          python -c "
+          import json
+          with open('data/articles.json','r',encoding='utf-8') as f:
+              d = json.load(f)
+          articles = sorted(d.get('articles',[]), key=lambda x: x.get('date',''), reverse=True)
+          today_articles = [a for a in articles if a.get('date','')[:10] == '$(TZ=Asia/Shanghai date +%Y-%m-%d)']
+          recent = today_articles[:8] if today_articles else articles[:8]
+          snippets = []
+          for a in recent:
+              cats = ','.join(a.get('categories',['其他']))
+              rel = a.get('relevance',50)
+              star = '⭐' if rel>=80 else '🔶' if rel>=60 else '📄'
+              title = (a.get('title','')[:60] + '...') if len(a.get('title',''))>60 else a.get('title','')
+              snippets.append(f'{star} [{cats}] {title}')
+          summary = '\n'.join(snippets)
+          print(summary)
+          " > /tmp/digest.txt
+
+          DIGEST=$(cat /tmp/digest.txt | head -20)
+
           if [ "${CHANGED}" = "true" ]; then
-            TITLE="APEC追踪更新 · ${DATE_STR}"
-            CONTENT="今日新增 ${TODAY} 篇，总计 ${TOTAL} 篇<br>看板: https://xiaojing748.github.io/apec-tracker/<br>资料库: https://xiaojing748.github.io/apec-tracker/archive.html"
+            TITLE="APEC追踪日报 ${DATE_STR} | +${TODAY}篇 累计${TOTAL}篇"
+            CONTENT="${DIGEST}<br><br>📊 <a href='https://xiaojing748.github.io/apec-tracker/'>查看完整看板</a> | 📁 <a href='https://xiaojing748.github.io/apec-tracker/archive.html'>资料库</a>"
           else
-            TITLE="APEC追踪 · ${DATE_STR} · 无更新"
-            CONTENT="今日无新增内容，总计 ${TOTAL} 篇<br>看板: https://xiaojing748.github.io/apec-tracker/"
+            TITLE="APEC追踪 ${DATE_STR} | 今日无更新 累计${TOTAL}篇"
+            CONTENT="今日暂无新增内容。<br><br>📊 <a href='https://xiaojing748.github.io/apec-tracker/'>查看完整看板</a>"
           fi
 
           curl -s -X POST http://www.pushplus.plus/send \
