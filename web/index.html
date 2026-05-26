@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEC 2026 :: Dynamic Tracking Knowledge Base</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1><span>APEC 2026</span> Cybersecurity & Data Governance - Dynamic Tracking</h1>
+      <p class="subtitle">Knowledge Base | Multi-dimensional Search | Quarterly Reports | 2026 China Host Year - Shenzhen</p>
+    </div>
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" title="Switch Light/Dark Mode">[Dark]</button>
+      <span id="updateStatus"><span class="status-dot"></span>Ready</span>
+      <span id="updateTime">Loading...</span>
+      <a href="archive.html" style="color:var(--accent-gold);text-decoration:none;font-size:0.8rem">Archive</a>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total</div></div>
+      <div class="stat-item"><div class="stat-num" id="statMonth">0</div><div class="stat-label">Month</div></div>
+      <div class="stat-item"><div class="stat-num" id="statToday">0</div><div class="stat-label">Today</div></div>
+    </div>
+    <div class="filter-section"><h3>Topics</h3><div id="categoryFilters"></div></div>
+    <div class="filter-section"><h3>Source Type</h3><div id="sourceTypeFilters"></div></div>
+    <div class="filter-section"><h3>Doc Type</h3><div id="docTypeFilters"></div></div>
+    <div class="filter-section"><h3>APEC Body</h3><div id="apecBodyFilters"></div></div>
+    <div class="filter-section"><h3>Geo Focus</h3><div id="geoFocusFilters"></div></div>
+    <div class="filter-section"><h3>Policy Tools</h3><div id="policyTagFilters"></div></div>
+    <div class="filter-section"><h3>Time Range</h3>
+      <select id="timeFilter">
+        <option value="all">All</option><option value="1">Today</option><option value="3">3 Days</option>
+        <option value="7" selected>7 Days</option><option value="30">30 Days</option><option value="90">Quarter</option>
+      </select>
+    </div>
+    <div class="filter-section"><h3>Month Archive</h3><select id="monthFilter"><option value="">Latest</option></select></div>
+    <div class="filter-section"><h3>Search</h3><input type="text" id="searchBox" placeholder="Title, source, keywords..."></div>
+    <div class="btn-row"><button class="btn primary" id="btnApply">Apply</button><button class="btn" id="resetFilters">Reset</button></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="view-tabs">
+      <button class="view-tab active" data-view="list">List</button>
+      <button class="view-tab" data-view="grid">Grid</button>
+      <button class="view-tab" data-view="timeline">Timeline</button>
+      <button class="view-tab" data-view="dashboard">Dashboard</button>
+    </div>
+    <div class="toolbar">
+      <span class="result-count" id="resultCount">0 results</span>
+      <select class="sort-select" id="sortSelect">
+        <option value="date">By Date</option><option value="relevance">By Relevance</option><option value="title">By Title</option>
+      </select>
+      <button class="btn" id="btnToggleAdd" style="margin-left:auto">+ Add Article</button>
+    </div>
+    <div class="active-filters" id="activeFilters"></div>
+
+    <div class="add-form-section" id="addFormSection" style="display:none">
+      <h3 style="font-size:0.85rem;color:var(--accent-gold);margin-bottom:10px">Add Article Manually</h3>
+      <div class="add-form-inline">
+        <input type="text" id="addTitle" placeholder="Title *"><input type="text" id="addUrl" placeholder="URL *">
+        <input type="date" id="addDate"><button class="btn primary" id="btnAddArticle">Add</button>
+      </div>
+      <div class="add-form-inline" style="margin-top:8px">
+        <select id="addSourceType">
+          <option value="官方公报">官方公报</option><option value="权威媒体">权威媒体</option>
+          <option value="学术论文">学术论文</option><option value="个人笔记">个人笔记</option>
+        </select>
+        <input type="text" id="addSource" placeholder="Source name"><input type="text" id="addSummary" placeholder="Summary (optional)">
+        <select id="addCategory">
+          <option value="">Auto-classify</option>
+          <option value="数据跨境与隐私保护">数据跨境与隐私保护< & Privacy</option>
+          <option value="AI治理">AI治理</option>
+          <option value="Telecom">Telecom & Cyber Governance</option>
+          <option value="数字经济">数字经济</option>
+          <option value="互联互通">互联互通</option>
+          <option value="供应链安全">供应链安全< Security</option>
+          <option value="地缘政治">地缘政治</option>
+          <option value="2026中国年">2026中国年</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="contentArea"><div class="no-results"><p>Loading data...</p></div></div>
+
+    <div id="dashboardArea" style="display:none">
+      <div class="dashboard-grid">
+        <div class="dash-card"><h3>Topic Distribution</h3><div id="topicChart"></div></div>
+        <div class="dash-card"><h3>Source Distribution</h3><div id="sourceChart"></div></div>
+        <div class="dash-card"><h3>Document Types</h3><div id="docTypeChart"></div></div>
+        <div class="dash-card"><h3>Monthly Trend</h3><div id="monthlyChart"></div></div>
+      </div>
+      <div class="dash-card" style="margin-bottom:14px">
+        <h3>Quarterly Report Export</h3>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <select id="quarterSelect">
+            <option value="2026-Q1">2026 Q1</option><option value="2026-Q2" selected>2026 Q2</option>
+            <option value="2026-Q3">2026 Q3</option><option value="2026-Q4">2026 Q4</option>
+          </select>
+          <button class="btn primary" id="btnExportMD">Export Markdown</button><button class="btn" id="btnExportCSV">Export CSV</button>
+          <span style="font-size:0.75rem;color:var(--text-muted);margin-left:auto" id="quarterCount"></span>
+        </div>
+        <div style="margin-top:10px;max-height:300px;overflow-y:auto;font-size:0.78rem" id="quarterPreview"></div>
+      </div>
+    </div>
+
+    <div class="feedback-panel" style="margin-top:20px">
+      <h3>Feedback</h3>
+      <div class="feedback-type">
+        <label><input type="radio" name="fbType" value="bug" checked> Bug Report</label>
+        <label><input type="radio" name="fbType" value="suggest"> Suggest Keywords</label>
+        <label><input type="radio" name="fbType" value="other"> Other</label>
+      </div>
+      <textarea class="feedback-textarea" id="feedbackText" placeholder="Describe the issue or suggestion..."></textarea>
+      <button class="btn primary" id="btnFeedback">Submit</button>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="detailModal"><div class="modal-content" id="detailContent"></div></div>
+
+<footer class="footer">
+  <p>Data sources: APEC official website, authoritative media reports | All information retains original links for verification</p>
+  <p>Auto-updated daily at 08:00 Beijing Time | Powered by GitHub Actions | <a href="https://github.com/xiaojing748/apec-tracker" target="_blank">GitHub</a></p>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script>
+(function(){var t=document.getElementById("themeToggle");var h=document.documentElement;var s=localStorage.getItem("apec-theme")||"dark";function st(v){h.setAttribute("data-theme",v);t.textContent=v==="dark"?"[Dark]":"[Light]";localStorage.setItem("apec-theme",v)}st(s);t.onclick=function(){st(h.getAttribute("data-theme")==="dark"?"light":"dark")}})();
+</script>
+<script src="app.js"></script>
+</body>
+</html>
