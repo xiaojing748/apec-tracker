@@ -1,0 +1,25 @@
+﻿name: Sync to Gitee
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Gitee
+        run: |
+          git remote add gitee https://hajimi-melon:${{ secrets.GITEE_TOKEN }}@gitee.com/hajimi-melon/apec-tracker.git
+          git push gitee master --force
+
+      - name: Trigger Gitee Pages
+        run: |
+          curl -s -X POST "https://gitee.com/api/v5/repos/hajimi-melon/apec-tracker/pages/builds?access_token=${{ secrets.GITEE_TOKEN }}" \
+            -H "Content-Type: application/json" -d '{}'
+          echo "Gitee Pages build triggered"
