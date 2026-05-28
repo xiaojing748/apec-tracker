@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-28 03:48:15",
+  "last_updated": "2026-05-28 15:07:09",
   "timezone": "Asia/Shanghai",
-  "total_articles": 31,
+  "total_articles": 41,
   "today_count": 0,
-  "monthly_count": 21,
+  "monthly_count": 23,
   "articles": [
     {
       "title": "APEC Trade Ministers Issue Joint Statement",
@@ -96,6 +96,30 @@
       ],
       "policy_tags": [],
       "relevance": 55,
+      "notes": "",
+      "starred": false
+    },
+    {
+      "title": "Regional Cooperation Efforts Focus on Delivering Practical Benefits",
+      "url": "https://www.apec.org/press/news-releases/2026/0520_SCE",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-05-20",
+      "summary": "SCE meeting during SOM2 focused on translating APEC's economic and technical cooperation agenda into concrete capacity building projects and measurable outcomes for member economies.",
+      "categories": [
+        "????"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "SCE"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 60,
       "notes": "",
       "starred": false
     },
@@ -409,6 +433,33 @@
       "starred": false
     },
     {
+      "title": "Driving the Next Era of Intelligent Mobility",
+      "url": "https://www.apec.org/press/news-releases/2026/1205_ADwkshp",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-05-12",
+      "summary": "APEC workshop on AI-empowered automotive industry explored intelligent mobility, digital transformation pathways, and cross-border data challenges for connected vehicles.",
+      "categories": [
+        "AI??",
+        "????"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "AD"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [
+        "AI_Governance"
+      ],
+      "relevance": 65,
+      "notes": "AI??????????????????",
+      "starred": false
+    },
+    {
       "title": "APEC Strengthens Regional Cooperation in Shanghai Amid Growing Trade Uncertainty",
       "url": "https://www.apec.org/press/news-releases/2026/1105_som2",
       "source": "APEC官网",
@@ -503,6 +554,35 @@
       "starred": false
     },
     {
+      "title": "Business Leaders Call for Urgent Action to Restore Trade Stability and Growth Across the Asia-Pacific",
+      "url": "https://www.apec.org/press/news-releases/2026/2904_ABAC2",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-04-28",
+      "summary": "ABAC II meeting: APEC Business Advisory Council urged member economies to take urgent action against rising protectionism, calling for trade facilitation, digital standards convergence, and supply chain resilience.",
+      "categories": [
+        "????",
+        "?????",
+        "????"
+      ],
+      "doc_type": [
+        "official_statement"
+      ],
+      "apec_bodies": [
+        "ABAC"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [
+        "Digital_Trade",
+        "FTAAP"
+      ],
+      "relevance": 85,
+      "notes": "ABAC??????????????????",
+      "starred": true
+    },
+    {
       "title": "Media Registration Opens for Ministers Responsible for Trade Meeting in Suzhou",
       "url": "https://www.apec.org/press/news-releases/2026/media-registration-opens-for-ministers-responsible-for-trade-meeting-in-suzhou",
       "source": "APEC官网",
@@ -525,6 +605,57 @@
       "policy_tags": [],
       "relevance": 45,
       "notes": "",
+      "starred": false
+    },
+    {
+      "title": "SCE: SOM Steering Committee on ECOTECH Meeting (SOM1)",
+      "url": "https://www.apec.org/press/photos/2026/sce--som-steering-committee-on-economic-and-technical-cooperation-meeting-som12026",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-04-09",
+      "summary": "The SOM Steering Committee on Economic and Technical Cooperation (SCE) met to coordinate capacity building and technical assistance programs across APEC working groups.",
+      "categories": [
+        "????"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "SCE",
+        "SOM"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 55,
+      "notes": "",
+      "starred": false
+    },
+    {
+      "title": "Intellectual Property Experts Align AI, Trade and Finance Agenda",
+      "url": "https://www.apec.org/press/news-releases/2026/intellectual-property-experts-align-ai--trade-and-finance-agenda",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-03-11",
+      "summary": "APEC Intellectual Property Experts Group (IPEG) met to align IP frameworks with emerging AI technologies, digital trade, and financial services across the Asia-Pacific region.",
+      "categories": [
+        "AI??",
+        "????"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [
+        "AI_Governance",
+        "Digital_Trade"
+      ],
+      "relevance": 75,
+      "notes": "3???????AI?????????????",
       "starred": false
     },
     {
@@ -667,6 +798,58 @@
       "starred": false
     },
     {
+      "title": "Minister Wang Yi to Senior Officials: Build Asia-Pacific Community with a Shared Future",
+      "url": "https://www.apec.org/press/news-releases/2026/0210_SOM1",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-02-10",
+      "summary": "Chinese Foreign Minister Wang Yi addressed the First APEC Senior Officials' Meeting (SOM1), calling on member economies to build an Asia-Pacific community with a shared future and outlining China's priorities as APEC 2026 host.",
+      "categories": [
+        "????",
+        "2026???"
+      ],
+      "doc_type": [
+        "official_statement"
+      ],
+      "apec_bodies": [
+        "SOM"
+      ],
+      "geo_focus": [
+        "china",
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 95,
+      "notes": "???SOM1????????????2026?APEC???????",
+      "starred": true
+    },
+    {
+      "title": "SOM: 1st Senior Officials' Plenary Meeting",
+      "url": "https://www.apec.org/press/photos/2026/som--1st-senior-officials'-plenary-meeting",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-02-10",
+      "summary": "The first APEC Senior Officials' Meeting (SOM1) plenary convened to set the 2026 agenda under China's host year theme, covering trade, connectivity, innovation and sustainable development.",
+      "categories": [
+        "????",
+        "2026???"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "SOM"
+      ],
+      "geo_focus": [
+        "china",
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 75,
+      "notes": "SOM1?????2026??????",
+      "starred": false
+    },
+    {
       "title": "Administrator Liu: Innovation-Led Cooperation Crucial to Reinforce Food Security",
       "url": "https://www.apec.org/press/news-releases/2026/administrator-liu--innovation-led-cooperation-crucial-to-reinforce-food-security",
       "source": "APEC官网",
@@ -685,6 +868,79 @@
       ],
       "policy_tags": [],
       "relevance": 55,
+      "notes": "",
+      "starred": false
+    },
+    {
+      "title": "CTI: Committee on Trade and Investment Plenary (SOM1)",
+      "url": "https://www.apec.org/press/photos/2026/cti--committee-on-trade-and-investment-plenary",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-02-08",
+      "summary": "APEC Committee on Trade and Investment held its first plenary meeting of 2026 during the SOM1 cluster, discussing trade facilitation, digital trade rules, and FTAAP progress.",
+      "categories": [
+        "????",
+        "????"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [
+        "CTI"
+      ],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [
+        "FTAAP",
+        "Digital_Trade"
+      ],
+      "relevance": 70,
+      "notes": "SOM1??CTI????????????FTAAP??",
+      "starred": false
+    },
+    {
+      "title": "Food Security Takes a Practical Turn",
+      "url": "https://www.apec.org/press/news-releases/2026/food-security-takes-a-practical-turn",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-02-08",
+      "summary": "APEC economies shift from policy commitments to actionable frameworks on food security, focusing on innovation-led agricultural cooperation and supply chain resilience.",
+      "categories": [
+        "?????"
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 50,
+      "notes": "",
+      "starred": false
+    },
+    {
+      "title": "EC: Economic Committee Plenary (SOM1)",
+      "url": "https://www.apec.org/press/photos/2026/ec--economic-committee-plenary",
+      "source": "APEC??",
+      "source_type": "????",
+      "date": "2026-02-08",
+      "summary": "APEC Economic Committee held its plenary during SOM1, focusing on structural reform, ease of doing business, and digital economy regulatory cooperation.",
+      "categories": [
+        "????",
+        "????"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 60,
       "notes": "",
       "starred": false
     },
