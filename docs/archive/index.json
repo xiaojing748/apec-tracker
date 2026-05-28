@@ -1,29 +1,7 @@
 {
-  "updated": "2026-05-24 12:33:08",
+  "updated": "2026-05-28 15:00:00",
   "total": 33,
   "entries": [
-    {
-      "title": "APEC in Charts 2025",
-      "date": "2026-05-24",
-      "source": "APEC官网",
-      "categories": [
-        "其他APEC动态"
-      ],
-      "url": "https://www.apec.org/publications/2025/10/apec-in-charts-2025",
-      "file": "docs/archive/docs/2026/05/24/2026-05-24-apec-in-charts-2025.md",
-      "has_fulltext": true
-    },
-    {
-      "title": "APEC Senior Officials' Report on Economic and Technical Cooperation 2024",
-      "date": "2026-05-24",
-      "source": "APEC官网",
-      "categories": [
-        "其他APEC动态"
-      ],
-      "url": "https://www.apec.org/publications/2024/11/apec-senior-officials'-report-on-economic-and-technical-cooperation-2024",
-      "file": "docs/archive/docs/2026/05/24/2026-05-24-apec-senior-officials-report-on-economic-and-technical-coope.md",
-      "has_fulltext": true
-    },
     {
       "title": "APEC Regional Trends Analysis, May 2026",
       "date": "2026-05-24",
@@ -33,7 +11,8 @@
       ],
       "url": "https://www.apec.org/publications/2026/05/apec-regional-trends-analysis--may-2026",
       "file": "docs/archive/docs/2026/05/24/2026-05-24-apec-regional-trends-analysis-may-2026.md",
-      "has_fulltext": true
+      "has_fulltext": true,
+      "pdf_file": "docs/archive/docs/2026/05/24/2026-05-24-apec-regional-trends-analysis-may-2026.pdf"
     },
     {
       "title": "APEC Trade Ministers Issue Joint Statement",
@@ -372,6 +351,30 @@
       ],
       "url": "https://www.apec.org/press/news-releases/2026/apec-health-officials-chart-2026-health-priorities",
       "file": "docs/archive/docs/2026/02/05/2026-02-05-apec-health-officials-chart-2026-health-priorities.md",
+      "has_fulltext": true
+    },
+    {
+      "title": "APEC in Charts 2025",
+      "date": "2025-10-01",
+      "source": "APEC??",
+      "categories": [
+        "????"
+      ],
+      "url": "https://www.apec.org/publications/2025/10/apec-in-charts-2025",
+      "file": "docs/archive/docs/2025/10/01/2025-10-01-apec-in-charts-2025.md",
+      "pdf_file": "docs/archive/docs/2025/10/01/2025-10-01-apec-in-charts-2025.pdf",
+      "has_fulltext": true
+    },
+    {
+      "title": "APEC Senior Officials' Report on Economic and Technical Cooperation 2024",
+      "date": "2024-11-01",
+      "source": "APEC??",
+      "categories": [
+        "????"
+      ],
+      "url": "https://www.apec.org/publications/2024/11/apec-senior-officials'-report-on-economic-and-technical-cooperation-2024",
+      "file": "docs/archive/docs/2024/11/01/2024-11-01-apec-senior-officials-report-on-economic-and-technical-coope.md",
+      "pdf_file": "docs/archive/docs/2024/11/01/2024-11-01-apec-senior-officials-report-on-economic-and-technical-coope.pdf",
       "has_fulltext": true
     }
   ]
