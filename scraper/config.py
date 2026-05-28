@@ -73,12 +73,32 @@ KEYWORDS = {
 }
 
 # ============================================================
+
+# ============================================================
+# 2026??????
+# ============================================================
+CHINA_2026_KEYWORDS = [
+    "APEC 2026 China", "APEC China 2026", "APEC host year 2026",
+    "APEC China host", "APEC 2026 host economy",
+    "APEC ???", "APEC 2026 ??", "APEC ????",
+    "APEC ???", "APEC ????", "APEC 2026 ??",
+    "APEC Suzhou", "APEC ??", "APEC Shanghai", "APEC ??",
+    "APEC Beijing 2026", "APEC ??2026",
+]
+
+
 # Domain Whitelist / Blacklist
 # ============================================================
 ALLOWED_DOMAINS = [
     "apec.org", "www.apec.org",
     "xinhuanet.com", "www.xinhuanet.com", "news.cn", "www.news.cn",
     "people.com.cn", "gmw.cn", "www.gmw.cn", "cnr.cn", "www.cnr.cn",
+    # ????/????
+    "gov.cn", "www.gov.cn", "sousuo.gov.cn",
+    "mfa.gov.cn", "www.mfa.gov.cn", "so.mfa.gov.cn",
+    "qstheory.cn", "www.qstheory.cn",
+    "cac.gov.cn", "www.cac.gov.cn",
+    "cctv.com", "www.cctv.com", "news.cctv.com",
     "jfdaily.com", "www.jfdaily.com", "ce.cn", "www.ce.cn",
     "chinanews.com", "www.chinanews.com", "english.news.cn",
     "reuters.com", "www.reuters.com", "ap.org", "apnews.com", "www.apnews.com",

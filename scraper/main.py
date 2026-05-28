@@ -10,7 +10,7 @@ from datetime import datetime
 # 确保项目根目录在 sys.path 中
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from scraper.sources import apec_org, bing_news, google_news
+from scraper.sources import apec_org, bing_news, google_news, china_gov
 from scraper.filters import apply as apply_filters
 from scraper.output import load_existing, merge_articles, write_json
 from scraper.archiver import archive_all
@@ -26,7 +26,7 @@ def main():
     all_articles = []
 
     # 1. APEC 官网（RSS + HTML）
-    print("  [1/3] 采集 APEC 官网...")
+    print("  [1/4] 采集 APEC 官网...")
     try:
         apec_results = apec_org.fetch_news()
         print(f"        获取 {len(apec_results)} 条")
@@ -36,7 +36,7 @@ def main():
         print(f"        APEC官网采集出错: {e}")
 
     # 2. Google News RSS（无需API Key，总是可用）
-    print("  [2/3] 采集 Google News...")
+    print("  [2/4] 采集 Google News...")
     try:
         google_results = google_news.search_all_keywords()
         print(f"        获取 {len(google_results)} 条")
@@ -46,13 +46,23 @@ def main():
         print(f"        Google News采集出错: {e}")
 
     # 3. Bing News API（仅在配置了API Key时使用）
-    print("  [3/3] 采集 Bing News...")
+    print("  [3/4] 采集 Bing News...")
     try:
         bing_results = bing_news.search_all_keywords()
         print(f"        获取 {len(bing_results)} 条")
         all_articles.extend(bing_results)
     except Exception as e:
         print(f"        Bing News采集出错: {e}")
+
+    # 4. 国内权威信源（外交部、新华社、国务院、人民网等）
+    print("  [4/4] 采集国内权威信源...")
+    try:
+        china_results = china_gov.fetch_all()
+        print(f"        获取 {len(china_results)} 条")
+        all_articles.extend(china_results)
+    except Exception as e:
+        print(f"        国内信源采集出错: {e}")
+
 
     # 过滤：去重 → 域名白名单 → 关键词匹配
     print(f"\n  采集完成，共 {len(all_articles)} 条（过滤前）")
