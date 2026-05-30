@@ -1,10 +1,32 @@
 {
-  "last_updated": "2026-05-29 03:53:42",
+  "last_updated": "2026-05-30 03:39:08",
   "timezone": "Asia/Shanghai",
-  "total_articles": 41,
+  "total_articles": 42,
   "today_count": 0,
-  "monthly_count": 23,
+  "monthly_count": 24,
   "articles": [
+    {
+      "title": "Japan Contributes JPY90.1 Million to Advance Clean Energy Cooperation Across APEC",
+      "url": "https://www.apec.org/press/news-releases/2026/0529_JapanMOU",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-05-29",
+      "summary": "APEC Secretariat",
+      "categories": [
+        "其他APEC动态"
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "japan"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
+    },
     {
       "title": "APEC Trade Ministers Issue Joint Statement",
       "url": "https://www.apec.org/press/news-releases/2026/0523_MRT_Statement",
