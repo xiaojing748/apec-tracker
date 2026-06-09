@@ -1,10 +1,54 @@
 {
-  "last_updated": "2026-06-08 04:15:08",
+  "last_updated": "2026-06-09 03:43:44",
   "timezone": "Asia/Shanghai",
-  "total_articles": 42,
+  "total_articles": 44,
   "today_count": 0,
-  "monthly_count": 0,
+  "monthly_count": 2,
   "articles": [
+    {
+      "title": "Chinese Taipei Contributes USD1.5 Million to APEC’s First Healthcare Sub-Fund",
+      "url": "https://www.apec.org/press/news-releases/2026/0608_CTMOU",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-06-08",
+      "summary": "APEC Secretariat",
+      "categories": [
+        "其他APEC动态"
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "china"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
+    },
+    {
+      "title": "How Digital Traceability is Supporting Trade Across APEC",
+      "url": "https://www.apec.org/press/videos/2026/how-digital-traceability-is-supporting-trade-across-apec",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-06-08",
+      "summary": "",
+      "categories": [
+        "其他APEC动态"
+      ],
+      "doc_type": [
+        "media_report"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
+    },
     {
       "title": "Japan Contributes JPY90.1 Million to Advance Clean Energy Cooperation Across APEC",
       "url": "https://www.apec.org/press/news-releases/2026/0529_JapanMOU",
