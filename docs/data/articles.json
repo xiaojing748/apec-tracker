@@ -1,10 +1,55 @@
 {
-  "last_updated": "2026-06-16 04:26:24",
+  "last_updated": "2026-06-17 04:21:06",
   "timezone": "Asia/Shanghai",
-  "total_articles": 44,
+  "total_articles": 46,
   "today_count": 0,
-  "monthly_count": 2,
+  "monthly_count": 4,
   "articles": [
+    {
+      "title": "Research on Fertility Cost Wins 2026 APEC Research Prize",
+      "url": "https://www.apec.org/press/news-releases/2026/0615_HWHE",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-06-16",
+      "summary": "APEC Policy Partnership on Women and the Economy",
+      "categories": [
+        "其他APEC动态"
+      ],
+      "doc_type": [
+        "policy_document",
+        "academic"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
+    },
+    {
+      "title": "2026 APEC Healthy Women Healthy Economy Research Prize Winner",
+      "url": "https://www.apec.org/press/videos/2026/2026-apec-healthy-women-healthy-economy-research-prize-winner",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-06-16",
+      "summary": "",
+      "categories": [
+        "其他APEC动态"
+      ],
+      "doc_type": [
+        "academic"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
+    },
     {
       "title": "Chinese Taipei Contributes USD1.5 Million to APEC’s First Healthcare Sub-Fund",
       "url": "https://www.apec.org/press/news-releases/2026/0608_CTMOU",
