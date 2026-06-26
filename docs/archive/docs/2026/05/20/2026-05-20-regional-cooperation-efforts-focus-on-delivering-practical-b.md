@@ -41,4 +41,4 @@ Updates from APEC working groups also highlighted cooperation underway across va
 
 This year also marks the five-year review of the Aotearoa Plan of Action, providing economies an opportunity to assess how APEC’s economic and technical cooperation agenda can remain relevant and responsive to the region’s evolving economic, technological and social challenges.
 
-For further details and media inquiries, please contact:[email protected]
+For further details and media inquiries, please contact:media@apec.org

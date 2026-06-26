@@ -37,4 +37,4 @@ The contribution also advances progress toward APEC's energy goals, including a 
 
 Established in 2010 as a fund focused on Low-Carbon Model Town projects, the sub-fund has since expanded to address broader priorities including energy resilience, energy access for underserved communities and the evolving demands that digital transformation places on energy systems.
 
-For further details and media inquiries, please contact:[email protected]
+For further details and media inquiries, please contact:media@apec.org

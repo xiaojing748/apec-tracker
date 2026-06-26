@@ -53,4 +53,4 @@ The council will continue its work at its third meeting in 2026, to be held in B
 
 For further information please contact:
 
-Shan Ming (Mr), ABAC Executive Director 2026, at +86 10 88075807, or[email protected]Antonio Basilio (Mr), Director, ABAC Secretariat, at +63 917 849 3351, or[email protected]
+Shan Ming (Mr), ABAC Executive Director 2026, at +86 10 88075807, orshanming@ccpit.orgAntonio Basilio (Mr), Director, ABAC Secretariat, at +63 917 849 3351, orabacsec@pfgc.ph
