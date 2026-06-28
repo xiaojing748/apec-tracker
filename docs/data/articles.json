@@ -1,10 +1,32 @@
 {
-  "last_updated": "2026-06-27 03:40:00",
+  "last_updated": "2026-06-28 04:03:14",
   "timezone": "Asia/Shanghai",
-  "total_articles": 46,
+  "total_articles": 47,
   "today_count": 0,
-  "monthly_count": 4,
+  "monthly_count": 5,
   "articles": [
+    {
+      "title": "Tourism Ministers Put Digital Innovation at the Heart of Regional Growth",
+      "url": "https://www.apec.org/press/news-releases/2026/260627_TMM",
+      "source": "APEC官网",
+      "source_type": "官方公报",
+      "date": "2026-06-27",
+      "summary": "APEC Tourism Ministerial Meeting",
+      "categories": [
+        "其他APEC动态"
+      ],
+      "doc_type": [
+        "meeting_minutes"
+      ],
+      "apec_bodies": [],
+      "geo_focus": [
+        "regional"
+      ],
+      "policy_tags": [],
+      "relevance": 45,
+      "notes": "",
+      "starred": false
+    },
     {
       "title": "Research on Fertility Cost Wins 2026 APEC Research Prize",
       "url": "https://www.apec.org/press/news-releases/2026/0615_HWHE",
