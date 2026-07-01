@@ -2,7 +2,7 @@
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 permissions:
@@ -36,59 +36,41 @@ jobs:
           cp index.html docs/index.html
           cp archive.html docs/archive.html
           cp -r archive docs/ 2>/dev/null || true
+          cp daily-report.md docs/daily-report.md 2>/dev/null || true
           TOTAL=$(python -c "import json;d=json.load(open('data/articles.json'));print(d['total_articles'])")
           TODAY=$(python -c "import json;d=json.load(open('data/articles.json'));print(d.get('today_count',0))")
           ARCHIVE=$(python -c "import json;d=json.load(open('archive/index.json'));print(d.get('total',0))" 2>/dev/null || echo "0")
           echo "total=${TOTAL}" >> $GITHUB_OUTPUT
-          echo "today=${TODAY}" >> $GITHUB_OUTPUT
+          echo "new_count=${TODAY}" >> $GITHUB_OUTPUT
+          echo "archive_count=${ARCHIVE}" >> $GITHUB_OUTPUT
+
           git config user.name "APEC Bot"
           git config user.email "bot@apec-tracker.local"
-          git add data/articles.json web/data/articles.json docs/ index.html "APEC动态看板.html" archive.html archive/
+          git add data/articles.json data/url_snapshot.json web/data/articles.json docs/ docs/daily-report.md "APEC动态看板.html" archive.html archive/
           if git diff --staged --quiet; then
             echo "No changes to commit"
             echo "changed=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Update: $(date +'%Y-%m-%d') [${TOTAL} articles / ${ARCHIVE} archived]"
+            git commit -m "Update: $(TZ='Asia/Shanghai' date +'%Y-%m-%d') [${TOTAL} articles / +${TODAY} new / archive ${ARCHIVE}]"
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Send Daily Digest via Pushplus
+      - name: Send WeChat notification
         if: always()
-        run: |
-          TOTAL="${{ steps.commit.outputs.total }}"
-          TODAY="${{ steps.commit.outputs.today }}"
-          CHANGED="${{ steps.commit.outputs.changed }}"
-          DATE_STR=$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M')
+        run: python scraper/wechat_notify.py
+        env:
+          WECHAT_WEBHOOK_URL: ${{ secrets.WECHAT_WEBHOOK_URL }}
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          WXPUSHER_APP_TOKEN: ${{ secrets.WXPUSHER_APP_TOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
 
-          python -c "
-          import json
-          with open('data/articles.json','r',encoding='utf-8') as f:
-              d = json.load(f)
-          articles = sorted(d.get('articles',[]), key=lambda x: x.get('date',''), reverse=True)
-          today_articles = [a for a in articles if a.get('date','')[:10] == '$(TZ=Asia/Shanghai date +%Y-%m-%d)']
-          recent = today_articles[:8] if today_articles else articles[:8]
-          snippets = []
-          for a in recent:
-              cats = ','.join(a.get('categories',['其他']))
-              rel = a.get('relevance',50)
-              star = '⭐' if rel>=80 else '🔶' if rel>=60 else '📄'
-              title = (a.get('title','')[:60] + '...') if len(a.get('title',''))>60 else a.get('title','')
-              snippets.append(f'{star} [{cats}] {title}')
-          summary = '\n'.join(snippets)
-          print(summary)
-          " > /tmp/digest.txt
-
-          DIGEST=$(cat /tmp/digest.txt | head -20)
-
-          if [ "${CHANGED}" = "true" ]; then
-            TITLE="APEC追踪日报 ${DATE_STR} | +${TODAY}篇 累计${TOTAL}篇"
-            CONTENT="${DIGEST}<br><br>📊 <a href='https://xiaojing748.github.io/apec-tracker/'>查看完整看板</a> | 📁 <a href='https://xiaojing748.github.io/apec-tracker/archive.html'>资料库</a>"
-          else
-            TITLE="APEC追踪 ${DATE_STR} | 今日无更新 累计${TOTAL}篇"
-            CONTENT="今日暂无新增内容。<br><br>📊 <a href='https://xiaojing748.github.io/apec-tracker/'>查看完整看板</a>"
-          fi
-
-          curl -s -X POST http://www.pushplus.plus/send \
-            -H "Content-Type: application/json" \
-            -d "{\"token\":\"${{ secrets.PUSHPLUS_TOKEN }}\",\"title\":\"${TITLE}\",\"content\":\"${CONTENT}\"}"
+      # Optional: keep email as fallback if QQ mail credentials are still configured
+      - name: Send email notification (optional)
+        if: always() && env.QQMAIL_SENDER != '' && env.QQMAIL_AUTH_CODE != ''
+        run: python scraper/notify.py
+        env:
+          QQMAIL_SENDER: ${{ secrets.QQMAIL_SENDER }}
+          QQMAIL_AUTH_CODE: ${{ secrets.QQMAIL_AUTH_CODE }}
+          QQMAIL_RECEIVER: ${{ secrets.QQMAIL_RECEIVER }}
